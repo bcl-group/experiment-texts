@@ -1,0 +1,15 @@
+*~
+*.aux
+*.fdb_latexmk
+*.idx
+*.log
+*.toc
+*.ist
+*.bbl
+*.blg
+*.dvi
+*.ilg
+*.ind
+*.lot
+*.out
+*.synctex.gz

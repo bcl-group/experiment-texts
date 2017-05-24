@@ -1,0 +1,219 @@
+\documentclass{jarticle}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{body={165mm,230mm}}
+
+\def\version{2.05}
+\begin{document}
+
+\begin{center}
+  {\LARGE 楽しい運動計測実習その1(ver.\version)}
+\end{center}
+\begin{flushright}
+\today
+\end{flushright}
+
+\section*{実習での注意}
+\begin{itemize}
+\item 取得データはデータ格納専用の外部HDDに専用フォルダを作って格納す
+  ること。ローカルディスクに放置すると謎のゴミになってしまい, 後で困り
+  ます。
+\item 計測実験の時には、「データをとっては解析」と繰り返すのが王道。
+  計測データを全てそろえてからその解析に入ると、あとで計測時の不備に気
+  づいて、全データの取り直しになってしまうことがよくある。
+\item 以下の実験は, 必ず全員のデータを取って解析してください。個人差が
+  ないかを確認することは重要です。
+\item 解析プログラムは各人作成後, お互いにその出力が同じになっているか
+  を確認すること。バグ取りは重要です。
+% \item 運動計測実験では，身長・体重等の身体パラメータがわかったほうが考
+%   察に役立つこともありますが，体重等を秘密にしたい方は無理に測らなくて
+%   もOKです。
+\end{itemize}
+
+% \section{1日目:歩行から走行}
+% \subsection{計測実験}
+% 以下を計測実験によって調べましょう。
+% \begin{enumerate}
+% \item 歩行から走行になる遷移速度はヒトによって違うだろうか?
+% \item 速度が上昇するときと減速するときでは遷移速度は違うだろうか?
+% \item 各移動速度で、一定時間に何回足を動かしているか数えて、
+%   移動速度と足の運動周期の関係を求めてみよう。
+% \item 歩容の遷移速度や足の運動周期と足の長さ等の身体パラメータの間にな
+%   にか関係があるだろうか?
+% \end{enumerate}
+
+% \noindent
+% [注意]
+% \begin{enumerate}
+% \item 実験の際は，被験者には移動速度は見せないようにすること。
+% \item 各移動速度での移動になれるための若干の時間を確保すること。
+% \end{enumerate}
+
+% \subsection{レポート作成}
+% \begin{enumerate}
+% \item \LaTeX を使って、実験結果をレポートにしなさい。\LaTeX の使いかた
+%   は裏ページと書籍を参照のこと。
+% \item 何をやって、どんな結果になったかと，結果に基づく簡単な考察を書くこと。
+% \item 結果をわかりやすく示す図表を作ること。グラフはxmgrace(マニュアル
+%   有)かgnuplotを、表は\LaTeX の表組機能を使うこと。
+% \item 注意：図の引用は\verb|\label|,\verb|\ref|を使うこと。
+% \item 〆切は2日目の夕方。
+% \item レポートが早くできて死にそうなヒトは、宿題をしましょう。
+% \end{enumerate}
+
+\section{高速度カメラと筋電計による運動計測その1}
+\subsection{運動計測1}
+上腕は鉛直下向き, 前腕を前に水平に出した状態で, いろいろな重さ(4種類以
+上)のものを持ち, その重さと前腕二頭筋の筋電の大きさの関係を調べる。
+
+\subsection{運動計測2}
+前腕を水平面内でゆっくり動かすときと早く動かすときについて, 手先の
+軌道と筋電(EMG)波形を計測し, 運動中のどのタイミングでどの筋肉に筋電が
+観測されるかを調べ、その理由を考える。
+\begin{itemize}
+\item 手首, 肘関節, 肩関節の位置にマーカを, 動作時に活動する筋肉(上腕
+  二頭筋と上腕三頭筋)に筋電計用電極をとりつけ、運動計測をしなさい。
+\item マーカをとりつける関節位置は別途資料参照。
+\item 高速度カメラのサンプリングは200 frame$/$sで行うこと。
+\item 各関節位置の軌跡はMoveTRで抽出する。
+\item 得られたデータは自分のホームに転送して解析すること。
+\end{itemize}
+
+\subsection{機器のセッティング}
+\begin{itemize}
+\item 計測用パソコン・高速度カメラ・ユニット・同期パルス発生装置・タッパ・筋電計のデータ送受信機を配置
+\item 
+\end{itemize}
+
+\subsection{データ解析}
+\subsubsection{筋電データの処理}
+以下のようなプログラムを作りなさい。
+\begin{enumerate}
+\item octaveを使って，筋電位に1〜40 Hzの通過帯域を持つバンドパスフィルター（５次バターワース）をかける。
+  （CVSを使って「octave-filter」というレポジトリを入手し，
+  \verb|butter.m|, \verb|filtfilt.m|, \verb|bilinear.m|, \verb|sftrans.m|, \verb|validate_filter_bands.m|を使う）
+\item C言語で筋電位$E(t)$を整流する(絶対値をとる)。
+\item C言語で適当な幅$\Delta T$の窓を設定して, その中での積分値を求め, 筋肉の
+  活動度を見る指標とする。
+\end{enumerate}
+つまり, 時刻$t$における筋肉の活動度($a(t)$)は以下で評価することになる。
+\begin{align}
+  a(t)=\frac{1}{\Delta T}\int_{t-\Delta T/2}^{t+\Delta T/2}|E(t)|dt\notag
+\end{align}
+
+これらの処理を行う理由を生データから考察せよ。
+
+\subsubsection{運動軌道データの切取り}
+
+\begin{enumerate}
+\item 計測によって得られた身体軌道のデータの内容を確認し, フォーマットとデータ
+  (数値)の意味を把握しなさい。
+  フォーマットは，使うソフトウェアの種類によって異なるが，大抵以下のよ
+  うになっている。
+  \begin{enumerate}
+  \item ヘッダ部(始め):計測条件, データの各列のタイトル
+  \item データ部: シーン番号、マーカID、x座標, y座標, z座標等
+  \item テール部(最後): 計測データを統計処理したデータが格納されている。
+  \end{enumerate}
+\item データファイルの名前を\verb|joints.csv|とするとき、このファイル
+  からデータ部のみを取り出した\verb|pos-joints.dat|と、
+  それ以外(ヘッダ部とテール部)のみを取り出したファイル\verb|info-joints.dat|
+  を作成するシェルスクリプト\verb|getdat.sh|を作りなさい。
+  各出力ファイルの仕様は以下の通りとする。
+  \begin{enumerate}
+  \item \verb|pos-joints.dat|は、データ部をそのままとり出す。
+% \begin{verbatim}
+% シーン,計測点1x,計測点2x,...,計測点1y,計測点2y,...
+% \end{verbatim}
+  \item \verb|info-joints.dat|は、データ部以外を取り出す。
+    (もしあれば)ダブルクォーテーション(")は取り除く。
+%    各行はじめの2フィールドのみを取り出す。(sedおよびcutコマンドを利用する)
+  \end{enumerate}
+  取得データファイルにおいて、データ部の行頭が
+  数字であることを利用すれば，egrepコマンドを使ってデータ部とそれ以外をそ
+  れぞれ抽出できる。
+\end{enumerate}
+
+
+\subsubsection{運動軌道データの処理}
+
+データファイル\verb|pos-joints.dat|から、各関節
+の各座標データを抽出する処理を自動化したい。
+\begin{enumerate}
+\item 以下のようなプログラム\verb|extract.c|を作りなさい。
+  \begin{enumerate}
+  \item 実行時には以下のような引数を指定できるようにする。
+\begin{verbatim}
+    $ extract <サンプリング周波数> <マーカ数> <入力データファイル名>
+\end{verbatim}
+  \item 出力データに書き込む「時刻」は、引数で与えた「サンプリング周波数」
+    と、入力データの「シーン」番号により計算する。
+  \item 入力ファイルが\verb|name.dat|のとき、出力ファイル名は計測点
+    IDを使って\verb|1-name.dat|, \verb|2-name.dat|,...とする。
+    もし、入力ファイル名が\verb|pos-joints.dat|ならば、出力ファイル名は計測点
+    IDを使って\verb|1-pos-joints.dat|,
+    \verb|2-pos-joints.dat|,...である。
+  \item 各出力データファイルのフォーマットは以下の通り。
+\begin{verbatim}
+時刻, x座標, y座標, z座標
+\end{verbatim}
+  \end{enumerate}
+\item  以下のようなシェルスクリプト\verb|extract.sh|を作りなさい。
+  その仕様は以下の通りとする。
+  \begin{enumerate}
+  \item 実行時には以下のような引数を指定できるようにする。
+\begin{verbatim}
+$ extract.sh <入力データファイル名>
+\end{verbatim}
+  \item 前問の\verb|extract|コマンドを、サンプリング周波数、計測
+    点数、入力データファイル名を指定して呼び出して、各関節のxyzデータを
+    抽出する。
+  \item サンプリング周波数とマーカ数は先につくってある
+    \verb|info-*.dat|から抽出する。
+    (例えばgrepとcutを用いて抽出できる。
+    シェルスクリプトで，あるコマンド\verb|cmd|の実行結果を変数
+    \verb|CMD|に格納するには\verb|CMD=`cmd`とすればOK|)
+
+  \end{enumerate}
+\item 以下のようなシェルスクリプト\verb|cut23|をつくりなさい。
+\begin{enumerate}
+\item 以下のように実行したら，入力ファイルの第2,3,4フィールド(xyz座標デー
+  タ)のみを抽出したファイルを出力する。(cutコマンドを使う)
+\begin{verbatim}
+$ cut23 1-pos-joints.dat
+\end{verbatim}
+\item 上記のように入力ファイル名が\verb|1-pos-joints.dat|ならば、出力
+  ファイル名は\verb|1-xy-joints.dat|とする。
+\end{enumerate}
+\end{enumerate}
+
+\subsection{レポート作成}
+\begin{enumerate}
+\item \LaTeX を使って、実験結果をレポートにしなさい。
+\item \LaTeX の使い方は裏ページ(「UNIX/LINUXの基本操作」のauctexの項目)や
+  各種文献参照のこと。
+\item  生データや処理したデータは xmgrace (マニュアル有)を使ってグラフ
+  (x-t,y-t,x-y等)にして考察しなさい。
+\item 実験の目的、手法、結果、考察をきちんと書くこと。ただし，考察は数
+  行程度でOK。
+\item 結果をわかりやすく示す図表を作ること。
+  絵を描くにはtgifやLibreOfficeを使う。
+  表は\LaTeX の表組機能を使うこと。
+\item 掲載した図表は必ず本文中で引用して説明すること。
+\item 図表の引用は\verb|\label|,\verb|\ref|を使った
+  \LaTeX の自動引用機能を使う事。
+\end{enumerate}
+% \newpage
+% \section{ポジションセンサによる運動計測}
+
+% ビデオによる運動計測はビデオレートが30フレーム/sと遅いため時間分解能が
+% 低いが、測定ポイント（マーカ）を多数用いることができ、マー
+% カ位置以外の画像情報も同時記録できることがメリットである。
+% 一方、浜松ホトニクスのポジションセンサ(PSD)を用いると、マーカ位置しか
+% 計測できず、マーカは同時に4個までしか計測できないが、最高300フレーム/s
+% と高速計測が可能になる。
+
+% \subsection{運動計測実験}
+% ポジションセンサを用いて以下のように計測実験を行いなさい。
+
+\end{document}

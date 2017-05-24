@@ -1,0 +1,209 @@
+\documentclass[twocolumn,11pt]{jsarticle}
+
+%\usepackage{kanjifonts}
+%\usepackage{twocolumn}
+\usepackage{amsmath}
+\usepackage{ascmac}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\geometry{body={167mm,230mm},columnsep=8mm}
+
+%% \renewcommand{\labelitemi}{一．}
+%% \renewcommand{\labelitemi}{□　}
+%% \renewcommand{\labelitemii}{□　}
+\usepackage{latexsym}
+\renewcommand{\labelitemi}{$\Box$}
+\renewcommand{\labelitemii}{$\Box$}
+\renewcommand{\labelitemiii}{- }
+
+
+\begin{document}
+
+\twocolumn[
+\begin{center}
+  \textbf{\LARGE 新春恒例TODO}
+  \vspace{8mm}
+\end{center}
+]
+
+\setcounter{page}{1}
+
+
+\section*{配布物}
+\begin{itemize}
+\item 研究室のくらし
+\item ネットワークの図
+\end{itemize}
+
+\section{新春の作業}
+
+\subsection{サーバ設定}
+\begin{itemize}
+\item 新メンバのアカウント確認
+\item ML更新(members, graduates)
+\item 古いユーザのメール着信拒否の設定
+\item 古いユーザのデータ移行，アカウント停止
+\item zeusの古いアカウント整理
+\end{itemize}
+
+\subsection{情報更新}
+\begin{itemize}
+\item ホームページのメンバー表更新
+\item 名簿(members-info)更新
+  \begin{itemize}
+  \item 新メンバ情報入力
+  \item 住所変更も確認
+  \end{itemize}
+\item 計算機一覧(裏ページ)更新
+\item 係決め(裏ページ参照)
+\end{itemize}
+
+\subsection{新メンバへのガイダンス}
+
+\begin{itemize}
+\item googleカレンダーアカウント作り
+\item slackアカウント作り
+\item 研究室での生活について説明
+  \begin{itemize}
+  \item そうじの仕方\&掃除
+    \begin{itemize}
+    \item 掃除機
+    \item ふき掃除
+    \item ごみ捨て（分別方法、すてる場所）	
+    \end{itemize}
+  \item 水回りの管理(冷蔵庫、お茶、etc)
+  \item 生活費
+  \item 喫煙場所
+  \item etc?
+  \end{itemize}
+\item 備品(製本機，パンチ，ホッチキス等の場所...)の紹介
+\item セミナー室(207，405)の紹介
+\item コピーの方法
+\end{itemize}
+
+
+\subsection{パソコン講習・整備}
+\begin{itemize}
+%\item Windows機(ノートPC含む)のメンテナンス
+\item 共用パソコンのメンテナンス
+  \begin{itemize}
+  \item Windows Upgrade
+  \item ウィルス対応ソフトの更新
+  \item Macの個人フォルダの整理
+  \end{itemize}
+
+\item パソコンの整備
+  \begin{itemize}
+  \item マシンのそうじ
+  \item ケーブル作り
+  \item OSのインストール(インストールマニュアル参照)
+  \end{itemize}
+\item 計算機環境講習会(Appendix\ref{sec:comp}参照)
+\end{itemize}
+
+\section{模様替え}
+\begin{itemize}
+\item 模様替えの計画(机・本箱その他もろもろの配置決定)
+\item 席決め
+\item 本箱整理(共有のものを整理し、新メンバーのスペース確保)
+\item 新4年生本箱決め(テプラ)
+\item 新4年生マシン決め
+\item 下駄箱整理
+  \begin{itemize}
+  \item 古いのを処分
+  \item 新メンバーの場所決定(テプラ)
+  \end{itemize}
+\end{itemize}
+
+\section{新卒論生の新春行事}
+\begin{itemize}
+\item Vine LinuxをノートPCにインストール
+\item 宿題チェック
+\item 計測実習
+\item 計測実習の発表準備
+\end{itemize}
+
+\section{新春イベント決定}
+\begin{itemize}
+\item 新歓コンパの日
+\item 新学期スケジュール確定次第
+  \begin{itemize}
+  \item そうじの日(美化係)
+  \item 実習発表会の日程決定
+  \item セミナーの日程
+  \item 本読みの日程
+  \item 図書館講習会(イベント係)
+  \end{itemize}
+\end{itemize}
+
+\appendix
+
+% \section{係一覧\label{sec:kakari}}
+% \begin{tabular}[t]{|ll|}\hline
+% 取締役 &   \\
+% 美化係 &   掃除責任者。掃除当番を決めて清掃状況の監督をする。\\
+% イベント係 & イベント、コンパ、レクリエーション等の企画\\
+% 掲示・広報係 &   本箱・下駄箱のテプラ作成。calendar(研究室、セミナー室)の情報登録・管理。\\
+% &名簿、ML、研究室ホームページの管理。その他各種掲示・配布物作成等。 \\
+% コンピュータ係 & バックアップその他計算機管理, ホームページ作り等\\\hline
+% \end{tabular}
+        
+
+\section{研究室の計算機環境について\label{sec:comp}}
+\begin{itemize}
+\item 研究室内のネットワークについて(別紙)
+  \begin{itemize}
+  \item webサーバ
+  \item メールサーバ
+  \item NFSサーバ
+  \item NISサーバ
+  \item 計算サーバ
+  \item Matlabの利用方法
+  \end{itemize}
+% \item quotaについて(「UNIX/Linuxの基本操作」参照)
+%   \begin{itemize}
+%   \item quotaの目的
+%     \begin{itemize}
+%     \item 異常ファイルや不正アクセスによる被害を食い止める。
+%     \item 不要なファイルによるディスクの食いつぶしを防ぐ
+%     \end{itemize}
+%   \item quotaにひっかかるとどういう症状になるか?
+%   \item 利用ディスク容量を小さくするには(不要ファイルの圧縮・削除)
+%   \item quota拡大は計算機係に
+%   \end{itemize}
+\item バックアップのしくみとスケジュール
+\item シャットダウンの仕方について
+\item 無線LANについて
+\item 研究室のホームページについて
+  \begin{itemize}
+  \item \verb|http://bcl.sci.yamaguchi-u.ac.jp/|
+  \item 各種ドキュメントも公開しています
+%   \item 作りなおし予定(ホームページ係)
+  \item 修正に御協力ください
+  \end{itemize}
+\item 非常時の対応(「UNIX/Linuxの基本操作」の「トラブル!」参照)
+%\item 個人のWebページのつくりかた
+%  \begin{itemize}
+%  \item \verb|~/public_html|以下のファイルをいじって \verb|make install|。
+%    これでwebサーバ(zeus)上にファイルがコピーされ、外部に公開されま
+%    す。
+%  \item 各自のページをつくってみよう。(用意されているindex.htmlを修正
+%  してmake installする)
+%  \end{itemize}
+
+\item 研究室の裏ページについて
+  \begin{itemize}
+  \item \verb|http://bcl.sci.yamaguchi-u.ac.jp/lab/|
+  \item 表ページの下にあるリンクからたどれます
+  \item 要パスワード
+  \item だれでもいじれます。いろいろな情報追加に協力おねがいします。
+  \item 裏ページのコンテンツ紹介
+  \item ギャラリーも活用してください(裏と同じパスワードで多分登
+    録可)
+  \item ちょっといじってみよう!(仮の名前のページを各自ちょっと作ってみ
+  る)
+  \end{itemize}
+\item その他
+\end{itemize}
+  
+\end{document}

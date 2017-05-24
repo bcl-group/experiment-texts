@@ -1,0 +1,1181 @@
+\documentclass{jarticle}
+\usepackage[hypertex]{hyperref}
+%\usepackage{kanjifonts}
+\usepackage{amsmath}
+\usepackage{ascmac}
+\usepackage[height=24cm,width=17cm]{geometry}
+\usepackage{fancyhdr}
+\fancyhead[el,or]{\fancyplain{}{\rightmark}}
+\fancyhead[er,ol]{\fancyplain{}{\leftmark}}
+
+\begin{document}
+\pagestyle{empty}
+\rule{\linewidth}{0.3pt}
+\begin{center}
+  {\Large 〜 LINUX のインストール, 管理情報〜}
+\end{center}
+\begin{flushright}
+\today 版\\
+西井 淳
+\end{flushright}
+\rule{\linewidth}{0.3pt} 
+\newpage
+{\small
+%% \begin{screen}
+\tableofcontents
+%% \end{screen}
+}
+
+\newpage
+
+% =============================
+% ここから本文
+% =============================
+
+\pagestyle{fancy}
+
+\section{はじめに}
+この文書には PC に関する情報・注意等が書かれてます. よく読んでください.
+また, この文書は研究室のホームページ上でも公開しています.
+\textbf{尚, 現在このマニュアルは研究室内の個人用 PC (デスクトップ) へ
+Vine Linux をインストールする方法のみを記載しています. }\\
+ノート PC やサーバなどでは一部異なる作業が必要になるので注意してください.
+
+\subsection{一般的注意}
+
+\begin{itemize}
+	\item 説明文中の行頭にある\verb|$|や\verb|#|は, gnome-terminal (端末) 等のターミナル
+	      またはコンソール画面の入力部前にあるマーク (プロンプト) を表わします.
+	      \verb|$|は一般ユーザーで実行する事, \verb|#|はスーパーユーザー (root)
+	      で実行する事を表わします.
+	\item 原則として帰るときは自分の PC とディスプレイの電源を切りましょう.
+	\item 停電前には必ず全ての PC とディスプレイの電源を切りましょう.
+	\item 電源を切るときは以下を実行します. ただし, \\
+	      \textbf{venus は全ての PC の電源が落ちていることを確認して一番最後に電源を切ります.
+	      逆に電源を入れるときは一番始めに入れます}
+		\begin{quote}
+\begin{verbatim}
+$ shutdown -h now
+\end{verbatim}
+		\end{quote}
+	\item PC の電源は切らない場合にも, \textbf{液晶画面は, 使わないときは必ず電源を切りましょう. }
+\end{itemize}
+
+\subsection{ネットワーク関連の情報}
+
+現在研究室にある各マシンの IP アドレス・名称・ニックネームは表
+\ref{tab:IP}の通りです.
+最新情報は venus の\verb|/etc/hosts|を参照してください.
+{\small
+\begin{table}[tbp]
+\centering
+\caption{研究室の IP 一覧 } \label{tab:IP}
+\begin{tabular}[t]{llll}\hline
+IP アドレス &	名称 &					ニックネーム &
+備考 \\ \hline
+133.62.236.98 &	muse.bcl.sci.yamaguchi-u.ac.jp &	muse & 先生\\ 
+133.62.236.99 &	fs.bcl.sci.yamaguchi-u.ac.jp &	fs & 先生\\ 
+133.62.236.101 &lento.bcl.sci.yamaguchi-u.ac.jp&	lento & 先生\\ 
+133.62.236.102 &largo.bcl.sci.yamaguchi-u.ac.jp &	largo & 先生\\ 
+133.62.236.103 &poco.bcl.sci.yamaguchi-u.ac.jp &	poco & 先生\\ 
+133.62.236.104 &dolce.bcl.sci.yamaguchi-u.ac.jp &	dolce & 先生\\ 
+133.62.236.105 &nyx.bcl.sci.yamaguchi-u.ac.jp   &       nyx & 先生\\
+133.62.236.115 &chloe.bcl.sci.yamaguchi-u.ac.jp &	chloe & 先生\\ 
+133.62.236.118 &zeus.bcl.sci.yamaguchi-u.ac.jp &	zeus & Mail ・ Web ・ WebDAV サーバ\\ 
+% 133.62.236.119 &mimir.bcl.sci.yamaguchi-u.ac.jp &	mimir & eLearning サーバ\\ 
+133.62.236.122 &vaio.bcl.sci.yamaguchi-u.ac.jp &	vaio & 先生\\ 
+133.62.236.124 &scan.bcl.sci.yamaguchi-u.ac.jp &	scan & 先生\\ 
+133.62.236.126 &sun.bcl.sci.yamaguchi-u.ac.jp &		sun & 先生\\ 
+\hline
+192.168.0.1 &	gateway.bcl.sci.yamaguchi-u.ac.jp &	gateway router & 研究室内ルータ\\ 
+192.168.0.2 &	wlan1.bcl.sci.yamaguchi-u.ac.jp &	wlan1 wireless1 & 無線 LAN アクセスポイント\\
+192.168.0.3 &	whub.bcl.sci.yamaguchi-u.ac.jp &	whub & 無線 HUB\\
+192.168.0.11 &	sirius.bcl.sci.yamaguchi-u.ac.jp &	sirius prn1 &	Xerox プリンタ \\
+192.168.0.12 &	nike.bcl.sci.yamaguchi-u.ac.jp &	nike prn2 &	canon インクジェットプリンタ \\
+192.168.0.13 &	canon.bcl.sci.yamaguchi-u.ac.jp &	canon &		大判プリンタ \\
+% 192.168.0.50 &	clio.bcl.sci.yamaguchi-u.ac.jp &	clio &		計測マシン \\
+% 192.168.0.51 &	khaos.bcl.sci.yamaguchi-u.ac.jp &	khaos &		計測マシン \\
+192.168.0.60 &	aither.bcl.sci.yamaguchi-u.ac.jp &      aither &	iMac \\
+% 192.168.0.80 &	apollo.bcl.sci.yamaguchi-u.ac.jp &	apollo &	計算サーバ \\
+192.168.0.100 &	venus.bcl.sci.yamaguchi-u.ac.jp &	venus &		NIS ・ NFS ・ MATLAB ライセンスサーバ\\
+\hline
+\end{tabular}
+\end{table}
+}
+{\small
+\begin{table}[tbp]
+\centering
+\caption{研究室の個人マシン IP 一覧 192.168.0.101 〜 192.168.0.150 } \label{tab:IP2}
+\begin{tabular}[t]{llll}\hline
+IP アドレス &	名称 &					ニックネーム &	備考 \\ \hline
+192.168.0.101 &	aglaia.bcl.sci.yamaguchi-u.ac.jp &	aglaia & \\
+192.168.0.102 &	altair.bcl.sci.yamaguchi-u.ac.jp &	altair & \\
+192.168.0.103 &	aphrodite.bcl.sci.yamaguchi-u.ac.jp &	aphrodite & \\
+192.168.0.104 &	arion.bcl.sci.yamaguchi-u.ac.jp &	arion & \\
+192.168.0.105 &	artemis.bcl.sci.yamaguchi-u.ac.jp &	artemis & \\
+192.168.0.106 &	athena.bcl.sci.yamaguchi-u.ac.jp &	athena & \\
+192.168.0.107 &	atlas.bcl.sci.yamaguchi-u.ac.jp &	atlas & \\
+192.168.0.108 &	bacchus.dcl.sci.yamaguchi-u.ac.jp &	bacchous & \\
+192.168.0.109 &	ceres.bcl.sci.yamaguchi-u.ac.jp &	ceres & \\
+192.168.0.110 &	coeus.bcl.sci.yamaguchi-u.ac.jp &	coeus &  \\
+\hline
+\end{tabular}
+\end{table}
+}
+{\small
+\begin{table}[tbp]
+\centering
+%\caption{研究室の IP 一覧 192.168.0.126 〜} \label{tab:IP2}
+\begin{tabular}[t]{llll}\hline
+IP アドレス &	名称 &					ニックネーム &	備考 \\ \hline
+192.168.0.111 &	demeter.bcl.sci.yamaguchi-u.ac.jp &	demeter & \\
+192.168.0.112 &	deneb.bcl.sci.yamaguchi-u.ac.jp &	deneb & \\
+192.168.0.113 &	dinoe.bcl.sci.yamaguchi-u.ac.jp &	dinoe & \\
+192.168.0.114 &	dionysos.bcl.sci.yamaguchi-u.ac.jp &	dionysos & \\
+192.168.0.115 &	endymion.bcl.sci.yamaguchi-u.ac.jp &	endymion & \\
+192.168.0.116 &	eos.bcl.sci.yamaguchi-u.ac.jp &		eos & \\
+192.168.0.117 &	erato.bcl.sci.yamaguchi-u.ac.jp &	erato & \\
+192.168.0.118 &	fate.bcl.sci.yamaguchi-u.ac.jp &	fate & \\
+192.168.0.119 &	gaia.bcl.sci.yamaguchi-u.ac.jp &	gaia & \\
+192.168.0.120 &	hades.bcl.sci.yamaguchi-u.ac.jp &	hades & \\
+192.168.0.121 &	hera.bcl.sci.yamaguchi-u.ac.jp &	hera & \\
+192.168.0.122 &	heracles.bcl.sci.yamaguchi-u.ac.jp &	heracles & \\
+192.168.0.123 &	hermes.bcl.sci.yamaguchi-u.ac.jp &	hermes & \\
+192.168.0.124 &	icurus.bcl.sci.yamaguchi-u.ac.jp &	icurus & \\
+192.168.0.125 &	io.bcl.sci.yamaguchi-u.ac.jp &		io & \\
+192.168.0.126 &	iris.bcl.sci.yamaguchi-u.ac.jp &	iris & \\
+192.168.0.127 &	juno.bcl.sci.yamaguchi-u.ac.jp &	juno & \\
+192.168.0.128 &	jupiter.bcl.sci.yamaguchi-u.ac.jp &	jupiter & \\
+192.168.0.129 &	loki.bcl.sci.yamaguchi-u.ac.jp &	loki & \\
+192.168.0.130 &	luna.bcl.sci.yamaguchi-u.ac.jp &	luna & \\
+192.168.0.131 &	mars.bcl.sci.yamaguchi-u.ac.jp &	mars & \\
+192.168.0.132 &	medusa.bcl.sci.yamaguchi-u.ac.jp &	medusa & \\
+192.168.0.133 &	nova.bcl.sci.yamaguchi-u.ac.jp &	nova & \\
+192.168.0.134 &	odysseus.bcl.sci.yamaguchi-u.ac.jp &	odysseus & \\
+192.168.0.135 &	orion.bcl.sci.yamaguchi-u.ac.jp &	orion & \\
+192.168.0.136 &	pandra.bcl.sci.yamaguchi-u.ac.jp &	pandra & \\
+192.168.0.137 &	persephone.bcl.sci.yamaguchi-u.ac.jp &	persephone & \\
+192.168.0.138 &	perseus.bcl.sci.yamaguchi-u.ac.jp &	perseus & \\
+192.168.0.139 &	pluto.bcl.sci.yamaguchi-u.ac.jp &	pluto & \\
+192.168.0.140 &	rhea.bcl.sci.yamaguchi-u.ac.jp &	rhea & \\
+192.168.0.141 &	rigel.bcl.sci.yamaguchi-u.ac.jp &	rigel & \\
+192.168.0.142 &	satyr.bcl.sci.yamaguchi-u.ac.jp &	satyr & \\
+192.168.0.143 &	spica.bcl.sci.yamaguchi-u.ac.jp &	spica & \\
+192.168.0.144 &	tchort.bcl.sci.yamaguchi-u.ac.jp &	tchort & \\
+192.168.0.145 &	titan.bcl.sci.yamaguchi-u.ac.jp &	titan & \\
+192.168.0.146 &	triton.bcl.sci.yamaguchi-u.ac.jp &	triton & \\
+192.168.0.147 &	uranos.bcl.sci.yamaguchi-u.ac.jp &	uranos & \\
+192.168.0.148 &	vega.bcl.sci.yamaguchi-u.ac.jp &	vega & \\
+192.168.0.149 &	walkure.bcl.sci.yamaguchi-u.ac.jp &	walkure & \\
+192.168.0.150 &	xibalba.bcl.sci.yamaguchi-u.ac.jp &	xibalba & \\
+\hline
+\end{tabular}
+\end{table}
+}
+
+venus.bcl.sci.yamaguchi-u.ac.jp はファイルサーバ (みんなのファイルがある),
+NIS サーバ (パスワードなどの管理をして, 研究室のマシンに情報を流す)
+という役割をしています.
+zeus.bcl.sci.yamaguchi-u.ac.jp はメールサーバ (IMAP/POP,SMTP) と Web サーバを担っています.
+\verb|venus, zeus 共に大変大事なマシンです|.
+
+その他ネットワーク関連の設定は表\ref{tab:IPset_l}の通り.
+\begin{table}[tbp]
+\centering
+\caption{ネットワークの設定 - 研究室内} \label{tab:IPset_l}
+\begin{tabular}{ll}\hline
+ネットマスク &		255.255.255.0 \\
+ネットワーク・アドレス &	192.168.0.0 \\
+ゲートウェイ &		192.168.0.1 \\
+プライマリ・ネームサーバ (DNS) &	192.168.0.1 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[tbp]
+\centering
+\caption{ネットワークの設定 - 外部} \label{tab:IPset_w}
+\begin{tabular}{ll}\hline
+ネットマスク &		255.255.255.224 \\
+ネットワーク・アドレス &	133.62.236.96 \\
+ゲートウェイ &		133.62.236.97 \\
+プライマリ・ネームサーバ (DNS) &	133.62.128.32 \\
+セカンダリ・ネームサーバ (DNS) &	133.62.128.33 \\
+ターシャリ・ネームサーバ (DNS) &	133.62.192.32 \\   \hline
+\end{tabular}
+\end{table}
+
+
+%%---------------------3.5 まずはここから-----------------------------------
+%>>>>>>> 2.00
+\section{インストール}
+Linux をインストールする場合, DVD (CD)-ROM からインストールする方法と,
+USB メモリで PC を起動 (boot) してネットワーク経由 (FTP) でインストールする方法があります.
+どちらもほとんど同じ手順ですが,
+ネットワーク経由の方法では最初にネットワーク関連の設定をする点が異なります.
+
+\subsection{DVD (CD)-ROM からインストール}
+
+インストールディスク (DVD (CD)-ROM) が無い場合は, Vine Linux のサイト http://vinelinux.org/ より
+ISO イメージファイルをダウンロードして, それを空のディスクに焼いて作りましょう.
+PC に電源を入れた直後にインストールディスクを入れると, インストールが始まります.
+もし始まらない場合は [Ctrl]+[Alt]+[Delete] で PC を再起動するか,
+それでもダメなら BIOS の設定を変更して, CD-ROM の起動順位を一番最初にしてください.
+
+\subsection{Linux (OS) のインストール}
+	\begin{itemize} 
+	\item 原則, アップグレードでは無くて"新規インストール"をする.
+	\item インストールの種類は「全てをインストール」を選択.
+	\item ディスクパーティションの設定は「 Disk Druid を使用して手動パーティション設定」を選択.
+	\item パーティションの設定は以下の通りにする.
+		\begin{itemize}
+			\item \verb|/dev/sda|(場合によっては/dev/hda) 以下のパーティションを削除.
+			      既存のパーティションは基本全て削除だが, Windows と Linux を
+			      共存させる (デュアルブート) 場合は, Windows パーティション
+			      (ntft, 〜 fat, fat 〜といった形式のパーティション) を残す.
+			\item 「新規」で以下のパーティションを追加する.
+			\item \verb|/boot| パーティション : Linux 起動に必要なファイルが入る領域 \\
+			      マウントポイント : /boot \\
+			      ファイルシステムタイプ : ext4 \\
+			      容量 (MB) : 100 \\
+			      固定容量 を選択し, OK.
+			\item \verb|swap| : メモリが一杯になった時に
+			      HD の一部を一時的にメモリのように使う領域 \\
+			      ファイルシステムタイプ : swap \\
+			      容量 (MB) : 各自のマシンのメモリの容量の倍くらい \\
+			      固定容量 を選択し, OK.
+			\item \verb|/|(ルート) パーティション : システムファイルや
+			      各種設定ファイル, ソフトウェアが入る領域 \\
+			      マウントポイント : / \\
+			      ファイルシステムタイプ : ext4 \\
+			      容量 (MB) : 40000MB くらい \\
+			      固定容量 を選択し, OK. \\
+			\item \verb|/home2| パーティション \\
+			      マウントポイント : \verb|/home2| \\
+			      ファイルシステムタイプ : ext4 \\
+			      容量 (MB) : 残り全部 \\
+			      最大容量まで使用 を選択し, OK. \\
+		\end{itemize}
+		メモ : \verb|/home| パーティション : おうちの PC にインストールするときは必須です.
+		しかし, 研究室の PC では \verb|/home| はファイルサーバ (venus) 上のディレクトリを共有するので,
+		この項目は必要ありません.
+	\item ブートローダの設定は基本そのままで構いませんが,
+	      Windows とのデュアルブートの場合は,
+	      起動時のデフォルト OS の設定などをしましょう.
+	\item ネットワークの設定でネットワークディバイスの「編集」より
+		\begin{itemize}
+			\item 「 DHCP を使用して設定」のチェックをはずす
+			\item 「起動時にアクティブにする」にチェックをいれる
+			\item 表\ref{tab:IP2}から選んだ名前に対応する IP アドレスと
+			      表\ref{tab:IPset_l}のネットマスクを参照して入力し, OK.
+			\item ホスト名を手動設定にして表\ref{tab:IP}の名称を入力し,
+			      その他の設定のゲートウェイと一番目の DNS へ
+			      表\ref{tab:IPset_l}を参照して入力.
+			\item 注意! マシンによってはここでネットワーク設定が現れない場合があります. その場合
+			      インストール終了後に, 「システム→システム管理→ネットワーク」よりネットワーク
+			      設定を開き, 各種ネットワーク設定を行なってください.
+		\end{itemize}
+%	\item 研究室内はネットワーク図の通りルータのファイアーウォールで守られているので,
+%	      個別の PC にファイアーウォールの設定は必要ありません.
+%	      ファイアウォール設定で「ファイアウォールなし」を設定します (警告が出ても続行).
+	\item セキュリティ向上のため個人マシンへもファイアウォールを設定します.
+	      ファイアウォール設定で「ファイアウォールあり」を選択します.
+	      加えて, 研究室ではインストール中のマシンへ他のマシンからリモートログインする
+	      場合があるので特定サービスへのアクセス許可欄の「リモートログイン (SSH) 」にのみ
+	      チェックを入れます. その他のサービスに関しては適宜「許可」「拒否」を選択してください.
+%	\item スーパーユーザー (root) のパスワード設定および一般ユーザアカウントの作成では,
+%	      「 root のパスワード設定のみ」行います. root パスワードを記入し, 次へ進みます
+%	      (一般ユーザアカウントを作成する警告が出ますが, 研究室ではアカウントを
+%	      NIS サーバ (venus) で管理しているので, 無視して進みます.
+%	      ただし, おうちの PC やノート PC ではユーザアカウントを作成してください).
+%	      root パスワードは知っていそうな人に聞いてください.
+%	      {\bf 絶対メモしない事!!}
+	\item スーパーユーザー (root) のパスワード設定および一般ユーザアカウントの作成を行います.
+	      root パスワードは知っていそうな人に聞いてください ({\bf 絶対メモしない事!!}).
+	      一般ユーザはユーザ名, パスワードに裏ページと同様のもの (guest) を設定し, 作成してください.
+	      (研究室ではアカウントを NIS サーバ (venus) で管理しているのですが, Vine Linux 6 以降デフォルトで
+	      GUI での root ログインが不可になったので, 一般ユーザを作成する必要があります).
+	\item ディスプレイの種類を聞かれたら以下を参考に設定する.
+		\begin{itemize}
+			\item 使うディスプレイの型名を選ぶ. 見当たらない時は
+			      ''Generic LCD Display''より各自のディスプレイの
+			      解像度に合ったものを選ぶ.
+			\item 色深度は 1600 万色 (24 ビット) を選択
+			\item 画面の解像度は各自の画面毎に以下の通り選択
+			\begin{itemize}
+				\item 20 〜 24inch ワイドならば 1920x1080
+				\item 19inch ワイドならば 1440x900
+				\item 17 〜 19inch ならば 1280x1024
+				\item 14, 15inch ならば 1024x768
+			\end{itemize}
+		\end{itemize}
+\end{itemize}
+
+インストールディスクが出てきて, インストールが完了したことが表示されたら, 再起動します.
+以上で Vine Linux のインストール完了です. インストール後の設定へ進みましょう.
+インストールは失敗したら何回でもやり直せるので, 気楽にどうぞ.
+
+%\subsection{FTP を使ってインストール}
+%
+%ブート USB メモリ (HTTP/NFS/FTP 対応) を用意して, Linux をインストー
+%ルしたいマシンを起動してください.
+
+%\begin{enumerate}
+%	\item boot プロンプトが出てきたら Enter を押す.
+%	\item Japanese を選択する.
+%	\item Keyboard Type の選択をする.
+%	\item Installation Method の選択をする.
+%	\item FTP image の選択をする.
+%	\item Configure TCP/IP の設定をする.
+%%ここでは, IP Address (133.62.236.xxx), Netmask (255.255.255.224)
+%%の 2 つの設定を行えばよい. xxx には自分のマシンの所有する IP アド
+%%レスを当てはめて使おう.
+%	\item  FTP/NFS Setup の設定をする.
+%%FTP server name  に\verb|ftp.info.sci.yamaguchi-u.ac.jp|を,
+%%Vine Linux directory に\\\verb|/pub/VineLinux/Vine-3.2/i386|を入力する.
+%	\item  あとはインストールディスクを使う場合と同じです.
+%\end{enumerate}
+
+\section{インストール後の設定}
+
+%インストール後 GRUB (ブートローダ) の選択画面等が表示されるので, "再起動"ボタンを押して再起動してください.
+%再起動後, ようこそと表示され, ユーザ名の入力欄が出てくれば起動完了です.
+インストール後再起動すると, Linux が起動してログイン画面が表示されます.
+設定は X Window で行います. まず, スーパーユーザ (root) でログインできるようにするため,
+guest でログインし, ターミナル (端末) 上で以下の作業を行います.
+\begin{itemize}
+	\item root になる (要パスワード入力).
+\begin{verbatim}
+$ su
+\end{verbatim}
+	\item vi のエディタで/etc/pam.d/gdm を開く
+\begin{verbatim}
+# vi /etc/pam.d/gdm
+\end{verbatim}
+もしくは, emacsのエディタで開く
+\begin{verbatim}
+# emacs -nw /etc/pam.d/gdm
+\end{verbatim}
+	\item /etc/pam.d/gdm を以下のように編集する.
+\begin{verbatim}
+#%PAM-1.0
+# auth required pam_succeed_if.so.user!=root    # ←行頭に#を加える
+auth       required    pam_env.so
+auth       substack    system-auth
+  ・
+  ・
+  ・
+\end{verbatim}
+	\item guest からログアウトし, root でログインする.
+\end{itemize}
+
+%そのままスーパーユーザ (root) でログインします.
+
+\subsection{各種設定ファイルのインストール\label{sec:cfg_ins}}
+
+\begin{enumerate}
+	\item ファイルサーバを参照できるようにターミナルを開き, 以下を実行します.
+\begin{verbatim}
+# mkdir /home/mnt
+# mount 192.168.0.100:/home/public/bcl-setup /home/mnt
+\end{verbatim}
+	\item 必要な設定ファイルをインストールします.
+\begin{verbatim}
+# cd /home/mnt
+# make install
+# cd -
+# umount /home/mnt
+\end{verbatim}
+\end{enumerate}
+
+\subsection{ソフトウェアの追加と更新}
+
+Vine Linux にはパッケージ管理システム apt (the Advanced Packaging Tool) があります.
+これにより必要なソフトウェアの追加インストール, また, インストールされている
+アプリケーションのアップグレードが簡単に行えます.
+%
+%まず, apt を使うための設定を行います.
+%エディタ (emacs など) で/apt/sources.list.d/main.list を以下のように編集してください
+%(jaist 以下の 2 行の\#を消し, master 以下の 2 行行頭に\#を加える).
+%\begin{verbatim}
+%# apt for RPM sources.list
+%
+%##
+%## Vine Linux 5.2 FTP
+%##
+%#
+%# (jaist mirror)
+%rpm     [vine] http://ftp.jaist.ac.jp/pub/Linux/Vine/apt 5.2/$(ARCH) main updates
+%rpm-src [vine] http://ftp.jaist.ac.jp/pub/Linux/Vine/apt 5.2/$(ARCH) main updates
+%#
+%# ...
+%#
+%# (master)
+%#rpm     [vine] http://updates.vinelinux.org/apt 5.2/$(ARCH) main updates
+%#rpm-src [vine] http://updates.vinelinux.org/apt 5.2/$(ARCH) main updates
+%\end{verbatim}
+%おうちで使う PC は, このファイルは書き換えなくても元のままでパッケージの
+%取得・インストールをできます. \\
+% \\
+%apt を使ってソフトウェアを追加・更新します.
+\begin{enumerate}
+	\item データベースの更新のおまじないを実行する.
+\begin{verbatim}
+# apt-get update
+\end{verbatim}
+	      表示が文字化けするときには英語モードで起動する.
+\begin{verbatim}
+# eng apt-get update
+\end{verbatim}
+	      以下同様に eng を頭に付ければ英語モードになります.
+
+ \item インストールパッケージを最新のものに更新する.
+\begin{verbatim}
+# apt-get dist-upgrade
+\end{verbatim}
+       エラーがでたら以下を試してみてください.
+\begin{verbatim}
+# apt-get -f upgrade
+\end{verbatim}
+ \item 研究室用に必要なパッケージ群をインストールする.
+\begin{verbatim}
+#  apt-get install task-bcl
+\end{verbatim}
+
+\end{enumerate}
+
+研究室では\verb|/home/public/rpm|以下に更新すべきパッケージ等が随時置いてあります.
+必要に応じてアナウンスしますので, その時には各自インストールを行ってください.
+インストールは上記のように
+\verb|apt-get update|と \verb|apt-get install <パッケージ名>|でできます.
+また, 同じ作業を\verb|synaptic|で簡単に実行する事が出来ます.
+スーパーユーザーになってから以下を実行して下さい.
+\begin{verbatim}
+# synaptic
+\end{verbatim}
+
+apt の詳しい使い方はオンラインマニュアルや,
+\url{http://bcl.sci.yamaguchi-u.ac.jp/?Texts}
+にある「 UNIX/LINUX の基本操作」を見てください.
+
+%\subsection{OpenOffice.org をインストール}
+%
+%OpenOffice.org は Microsoft Office のファイルの読み込みもできる, オフィスソフトパックです.
+%表計算, 文章作成, プレゼン資料作成等いろいろできます.
+%以下のようにしてインストーラーを起動し, 画面の指示に従ってインストールしましょう.
+%\begin{verbatim}
+%# /home/public/openoffice.org/setup
+%\end{verbatim}
+%\subsection{StarSuite をインストール}
+%
+%StarSuite は Microsoft Office のファイルの読み込みもできる, オフィスソフトパックです.
+%表計算, 文章作成, プレゼン資料作成等いろいろできます.
+%以下のようにしてインストールしましょう.
+%\begin{verbatim}
+%# cd /home/public/unpack_starsuite/RPMS
+%# rpm -ivh star*.rpm
+%\end{verbatim}
+
+\subsection{システムサービスの設定}\label{tab:SS}
+
+システム起動時に自動的に起動するサービスを選択します.
+\begin{enumerate}
+	\item メニューバーの「システム」→「システム管理」→「サービス」の順に選択し,
+	      「サービスの設定」を開く.
+%	\item メニューの「ランレベルの編集」から「すべてのランレベル」を選択する.
+%	\item バックグラウンドのサービスを選択して以下のように設定する.
+	\item バックグラウンドのサービスを選択して, 「カスタマイズ」より以下のように設定する.
+	      (○:すべてのランレベルでチェックを入れる. ×:すべてのランレベルのチェックを外す).
+
+%\begin{verbatim}
+%【 研究室の個人マシンの場合 】
+\begin{verbatim}
+    autofs   … ○
+    cpuspeed … ×
+    cups     … ○
+    network  … ○
+    ntpd     … ○
+    proftpd  … ×
+    sshd     … ○
+    ypbind   … ○
+\end{verbatim}
+
+%\begin{verbatim}
+%【 おうちの PC の場合 】
+%    apache2      … ○
+%    atalk        … ×
+%    autofs       … ×
+%    avahi-daemon … ×
+%    cpuspeed     … ×
+%    cups         … ○
+%    dhcpd        … ×
+%    nfs          … ×
+%    nfslock      … ×
+%    ntpd         … ○
+%    proftpd      … ×
+%    sshd         … ○
+%\end{verbatim}
+
+%	\item 設定し終わったら「保存」ボタンを押す.
+\end{enumerate}
+
+
+
+\subsection{ネットワークアドレスの確認}
+
+%これからの設定も, コンソールで作業します.
+vi や emacs などのエディターで\verb|/etc/hosts|を開き, 内容が以下のように
+なってるか確認します. なってない場合は修正してください.
+ただし, ??? の部分は割り当てられた IP アドレス, mmm の部分は
+使ってる PC のホスト名になります.
+\begin{quote}
+\begin{verbatim}
+127.0.0.1              localhost.localdomain localhost
+192.168.0.100          venus.bcl.sci.yamaguchi-u.ac.jp venus
+192.168.0.???          mmm.bcl.sci.yamaguchi-u.ac.jp    mmm
+\end{verbatim}
+\end{quote}
+以下は具体例 (io.bcl.sci.yamaguchi-u.ac.jp の場合) です.
+\begin{quote}
+\begin{verbatim}
+127.0.0.1              localhost.localdomain localhost
+192.168.0.100          venus.bcl.sci.yamaguchi-u.ac.jp venus
+192.168.0.125          io.bcl.sci.yamaguchi-u.ac.jp     io
+\end{verbatim}
+\end{quote}
+
+
+
+\subsection{NIS の設定}
+研究室内で, 共通のログイン名とパスワードでどの PC にもログインできるよう
+に NIS (Network information service) の設定をします.
+まず, システムのシステム管理の「サービス」を開きます. \ref{tab:SS}と同様にして, Text の「 ypbind 」
+にチェックがあるのかを確認します.
+次に, システムからシステム管理の「認証」を選択します.
+
+「ユーザー情報」から NIS の「 NIS サポートを有効する」にマークし, 「 NIS の設定」を選択し,
+\begin{itemize}
+	\item NIS ドメイン : good.night
+	\item NIS サーバ : 192.168.0.100
+\end{itemize}
+と入力する.
+
+入力が終わったら, 再びシステムのシステム管理の「サービス」を開いて「 ypbind 」を開始します.
+
+
+
+\subsection{時刻あわせ (NTP:Network Time Protocol) の設定}
+
+PC の時計を定期的に標準時刻にあわせるように設定します.
+\begin{enumerate}
+	\item エディタで NTP の設定ファイル (/etc/ntp.conf) を以下のように編集する.
+\begin{verbatim}
+#server 127.127.1.0        #local clock  # ←行頭に#を加える
+#fudge  127.127.1.0 stratum 10           # ←行頭に#を加える
+
+server  ntp.cc.yamaguchi-u.ac.jp         # ←記入する
+\end{verbatim}
+	\item PC 起動時に時刻調整を行って NTP を起動するようにする.
+\begin{verbatim}
+# cd /etc/ntp
+# echo "ntp.cc.yamaguchi-u.ac.jp" >step-tickers
+\end{verbatim}
+	\item PC 起動時に NTP を自動起動するようにする
+	      (\ref{tab:SS}節で設定していれば新たに設定する必要はないです).
+\begin{verbatim}
+# /sbin/chkconfig ntpd on
+\end{verbatim}
+	\item ちょっと今の時間を見てみる.
+\begin{verbatim}
+# date
+\end{verbatim}
+	\item NTP を起動する.
+\begin{verbatim}
+# /etc/rc.d/init.d/ntpd start
+\end{verbatim}
+	\item もう一度時刻を見てみて, 時刻の修正がされたか確認する
+	      (もともとあまり時刻が違わなければわかんないけど).
+\begin{verbatim}
+# date
+\end{verbatim}
+\end{enumerate}
+
+
+
+%%\subsection{入出力機器の設定 (xorg.conf の編集)}
+%\subsection{バッキングストア}
+%
+%vi や emacs などのエディタでファイル\verb|/etc/X11/xorg.conf|を編集します.
+%
+%%\subsubsection{キーボードの設定}
+%%X Window におけるキーボードの「 Ctrl 」キー (左側) と「 Caps Lock 」キーを入れ換えます.
+%%%(2 つのキーが入れ替わり, キー操作の時の指の負担が減ります)
+%%%\begin{verbatim}
+%%%# setup
+%%\end{verbatim}
+%%でてきた設定メニュー「キーボード設定」を選んだ後\verb|jp106_Ctrl_CAPS|
+%%を選択します.
+%%これで, 「 Caps Lock 」と「 Ctrl 」の位置が入れ替わります.
+%
+%%しかし, この作業だけでは X Window でキーの位置が変わらないので, 以下のよ
+%%うに X Window 用の設定もします.
+%vi や emacs 等のエディタでファイル\verb|/etc/X11/xorg.conf|を編集します.
+%このファイルに次の行があるのでコメントマーク\#を消してください.
+%万一記述がない場合は\#以外を記述してください.
+%\begin{verbatim}
+%      …
+%Section "Input Device"
+%      Identifier  "Keyboard0"
+%      …
+%#     Option "XkbOptions" "ctrl:swapcaps"   # ←この行の「#」を消す
+%      …
+%End Section
+%      …
+%\end{verbatim}
+%
+%また, X Window で日本語キーボードを使える設定になっているかをまず確認します.
+%以下が\verb|/etc/X11/xorg.conf|に記述されていなかったり,
+%記述内容が違うため, X Window でキーのレイアウトが
+%おかしくなることがあるので, 確認して必要があれば vi や emacs で編集します.
+%\begin{verbatim}
+%    …
+%Section "Input Device"
+%      Identifier  "Keyboard0"
+%    …
+%	Option "XkbModel"  "jp106"   # ←記述があるか確認無ければ追記
+%	Option "XkbLayout" "jp"      # ← us (英語配列) でなくて jp (日本語配列) になっているか確認
+%    …
+%End Section
+%    …
+%\end{verbatim}
+%
+%\subsubsection{バッキングストア}
+%次に, あるウィンドウが他のウィンドウに隠されてしまったとき,
+%あるウィンドウが他のウィンドウに隠されてしまったとき,
+%書いてあった内容をメモリ内に保持するように設定します.
+%この設定により, 邪魔なウィンドウをどけたとき, 下にあったはずの文字が消
+%えてしまったりといったことが無くなります.
+%
+%エディターでファイル\verb|/etc/X11/xorg.conf|を開いて, Screen セクショ
+%ン (ファイルの最後の方) に, 以下のように一行追加してください.
+%\begin{verbatim}
+%    …
+%Section "Screen"
+%    …
+%        Subsection "Display"
+%                Depth       24
+%        EndSubsection
+%        Option "backingstore"            # ←追記
+%EndSection
+%\end{verbatim}
+%編集が終わったら保存してエディタを閉じます.
+%
+%これらの設定は, X Window を起動し直すと有効になります.
+%キーボードの [Ctrl]+[Alt]+[F1] を押してコンソールに移動します.
+%スーパーユーザ (root) でログインして, コンソール画面上で以下を実行します.
+%\begin{verbatim}
+%    # init 3   ←この後数秒待って, 止まったら Enter   
+%    # init 5
+%\end{verbatim}
+%グラフィカルのログイン画面がでてくれば OK です.
+
+%\subsection{X Window の設定}
+%
+%! 注意! ここは, インストール後 X Window の表示がおかしい人が行います.
+%グラフィカルのログイン画面が表示されている人は設定の必要はありません.
+%\begin{verbatim}
+%# setup
+%\end{verbatim}
+%これで「 X Window System の設定」を選択し, 表示されるメニューに従ってください.
+%ディスプレイの選択は先のインストールの項で述べた通りです.
+%それ以外は「自動検出」か「了解」, 「推奨」あたりを選択してれば大抵は大
+%丈夫です.
+%ビデオメモリは困ったら 32M にしておいたら大抵問題ないです.
+
+
+
+\subsection{プリンタの設定}
+X Window 起動後 firefox などのブラウザを起動してプリンタの設定をします.
+設定方法は「 BCL 裏ページ/ プリンタの設定」を見て下さい.
+%
+%設定後, 両面印刷をしたい場合には,
+%プリンタ名\verb|lpdp|を以下のように指定します.
+%\begin{quote}
+%\begin{verbatim}
+%ex1) $ lpr -Plpdp <ファイル名>
+%ex2) $ mpage -Plpdp <ファイル名>
+%\end{verbatim}
+%\end{quote}
+%
+プリントアウトの方法は, 「 UNIX/LINUX の基本操作」を見てください.
+
+
+
+\subsection{ドライバのインストール (必要な人は行ってください)}
+! 注意 ! ここの作業は Linux インストール後に
+\begin{itemize}
+	\item ネットワークデバイスが見つからないためネットワークに接続できない
+	\item ディスプレイにグラフィカルな画面が表示されない
+	\item デュアルディスプレイを設定したい
+\end{itemize}
+などの場合に行ってください.
+それ以外の人は設定の必要はありません.
+
+デバイスのドライバは \verb|/home/public/drivers| 配下にあります.
+ \verb|README| を参照して必要なドライバをインストールしてください.
+設定方法は「 BCL 裏ページ/ ドライバインストール」をみてください.
+
+\subsubsection{GPU が NVIDIA 製 (GeForce ○○, nForce ○○, ...etc) のグラフィックカードのドライバをインストールするための事前作業}
+
+当該グラフィックカードのドライバをインストールするためには,
+以下の事前設定が必要です.
+\begin{enumerate}
+	\item /etc/grub.conf をエディタで開く
+	\item 以下のように kernel から始まる行の``末尾''に nouveau.modeset=0 を追記
+\begin{verbatim}
+title Vine Linux (Current kernel)
+    root (hd0,2)
+    kernel /vmlinuz ... 省 ... quiet nouveau.modeset=0  # ← nouveau.modeset=0 を追記
+    initrd /initrd.img
+
+title Vine Linux (Previous kernel)
+    root (hd0,2)
+    kernel /vmlinuz.old ... 省 ... quiet nouveau.modeset=0  # ← nouveau.modeset=0 を追記
+    initrd /initrd.old.img
+\end{verbatim}
+	\item /etc/grub.conf を上書き保存
+	\item PC を再起動
+	\item ドライバのインストール作業へ
+\end{enumerate}
+
+\section{個人設定}
+
+以下の設定は, 各自のアカウント (一般ユーザ権限) で行ってください.
+
+%\subsection{アップグレードした時に必要な, 個人設定変更 (Vine Linux 3.x から 4.x へ)\label{sec:private}}
+%
+%アップグレード時には, 各人以下の作業を行ってください. (新規ユーザの人はこの作業は必要ありません).
+%なお, \textbf{以下の作業は, X window からログアウトして, コンソール上で行うこと}. 
+%
+%\begin{enumerate}
+%	\item 古い設定ファイルをバックアップ (しばらくして, 問題なければ消してよい). 
+%		\begin{quote}
+%\begin{verbatim}
+%$ mkdir oldconfig
+%$ mv .Xdefaults .bash* .canna .emacs .rpmmacros .vine/ oldconfig/
+%$ mv etc/emacs/* oldconfig
+%\end{verbatim}
+%		\end{quote}
+%	\item 新しい設定ファイルをインストール
+%		\begin{quote}
+%\begin{verbatim}
+%$ cd ~/
+%$ cp /etc/skel/.???* .
+%$ cp /etc/skel/lib/emacs/* etc/emacs
+%\end{verbatim}
+%		\end{quote}
+%\end{enumerate}
+
+\subsection{キーボードの設定}
+
+X Window におけるキーボードの「 Ctrl 」キー (左側) と「 Caps Lock 」キーを入れ換えます
+(2 つのキーが入れ替わり, キー操作の時の指の負担が減ります).
+\begin{itemize}
+	\item 「システム」→「設定」→「キーボード」→「ハードウェア」を選択し, 「キーボードの設定」を開く.
+	\item 「レイアウト」タブ内の「オプション」を選択する.
+	\item 「キーボード・レイアウトのオプション」内の「 Ctrl key position 」以下の「 Swap Ctrl and Caps Lock 」
+	      にチェックを入れる.
+\end{itemize}
+\subsection{ホームディレクトリのディレクトリ名の設定}
+ホームディレクトリにあるディレクトリ名を日本語から英語に変更します.
+\begin{verbatim}
+$ LANG=C xdg-user-dirs-gtk-update
+\end{verbatim}
+設定ウィンドウが立ち上がるので設定を変更する.
+
+\subsection{E メールの設定}
+
+\subsubsection{E メールアドレスについて}
+
+研究室に配属された人には, \verb|<ユーザ名>@bcl.sci.yamaguchi-u.ac.jp|
+というメールアドレスを用意しています.
+ほかに, 研究室に所属する人全員にメールが送られるメーリングリスト
+\verb|members@bcl.sci.yamaguchi-u.ac.jp| があります.
+
+\subsubsection{メーラについて}
+%メーラにはいろいろありますが, sylpheed や thunderbird が軽くて人気があり
+%ます. sylpheed は WindowMaker のアイコンから起動します.
+%thunderbird は firefox (mozilla の軽量版) との兄弟ソフトで,
+メーラにはいろいろありますが, thunderbird や sylpheed が人気があります.
+%\begin{verbatim}
+%# apt-get install thunderbird
+%\end{verbatim}
+%でインストールできます.
+% emacs 上で動くメーラ mew も根強い人気があります. mew の設定は
+% \verb|~/etc/emacs/mew.emacs-4.1.el|を編集します.
+
+メーラによらない共通の設定は以下のとおりです.
+
+\begin{tabular}[t]{ll}\hline
+受信メールプロトコル & imap\\
+受信メールサーバ & zeus.bcl.sci.yamaguchi-u.ac.jp\\
+SMTP サーバ (送信用サーバ)& zeus.bcl.sci.yamaguchi-u.ac.jp\\\hline
+\end{tabular}
+
+\subsubsection{学外からメールを読む}
+
+研究室にとどいている Email を学外から見ることができます.
+firefox 等のブラウザがあれば, 世界中どこからでもメー
+ルをみれます (日本語フォントがないと文字化けしますが).
+研究室の裏ページからリンクをはってるので, 是非活用してください.
+いずれも接続方法は IMAP, ログインにはメール用のパスワードを使います.
+%% また, メールの操作として「削除」は行っても OK ですが, 「フォルダへ移動」と
+%% いう項目は (メニューにあっても) 使わないで下さい.
+%% メールの整理は学校に来てから mew とか sylpheed などでいつものように行って下さい.
+
+\subsubsection{メールの転送について\label{sec:forward}}
+
+大学の計算機センタ等, 研究室以外で受け取ってるメールをを研究室に転送したり,
+どこかでかけるとき研究室に届いたメールをどこかに転送したりすることができます.
+設定方法は「 UNIX/LINUX の基本操作」第 5 章の「メール転送について」の節をどうぞ.
+
+
+
+\subsection{スケジューラ (Google Calendar) の設定}
+
+研究室の予定などを共有できるように Google Calendar の設定をしましょう.
+セミナーなどの日程調整のために, 各自講義の時間割りや, 何かの都合でいな
+いときには, 必ず記入して下さい.
+設定方法は「 BCL 裏ページ/ 研究室のカレンダー環境」をみてください.
+
+
+
+\subsection{Web ページの作成}
+
+自分のホームページをつくるには, \verb|~/public_html/|以下で,
+index.html を編集して, \verb|make install| すれば OK です.
+%html ファイルの書き方は, 研究室のホームページから「計算機関連のリンク
+%集」のページに行き, そこの「ホームページの作り方」にあるリンクを参考に
+%してください.
+\verb|make install| でなにが行われているか, Makefile の中身を見て
+確認してください.
+設定方法は「 BCL 裏ページ/ 個人のホームページ」にも記載されています.
+
+
+\section{計算機の利用}
+
+%\subsection{研究室外との接続について}
+%
+%最近大学や官公庁へのクラックが多いので, 研究室のコンピュータもセキュリティを
+%以下のように強化します.
+%
+%\begin{itemize}
+%	\item telnet, rsh は研究室内でのみ有効
+%	\item 研究室外からの接続は ssh (暗号化通信を行う) に限定
+%	\item 学外からの接続 (各種プロバイダ等から) の接続は www.info.sci.yamaguchi-u.ac.jp に ssh 
+%	      で接続した後, 各ホストに ssh 等で接続. このためのアカウントが必要な人は申請して
+%  ください.
+%\end{itemize}
+% 研究室外の Windows マシンから接続する時には, SSH 対応の teraterm
+%(TTSSH, Teraterm SSH Extension) 等を使って www.info.sci.yamaguchi-u.ac.jp に接続後, ssh で普段使っ
+%てるマシン等に接続してください. このとき, マシンには IP アドレスを入力して下さい.
+%SSH 対応の teraterm のインストールの仕方は
+%\url{http://stingray.sfc.keio.ac.jp/security/ssh/ttssh.html}などに
+%載っています.
+%ssh を使って他のマシンにログインする時は,
+%次のようにします.
+%\begin{quote}
+%\begin{verbatim}
+%ex1) $ ssh <IP アドレス or ホスト名>
+%ex2) $ ssh <ユーザ名>＠<IP アドレス or ホスト名>
+%\end{verbatim}
+%\end{quote}
+%指定ユーザ名で指定ホストにログインするときには,
+%ユーザ名＠をホスト名の前につければ OK.
+%
+%マシン間のファイルを転送するには scp というコマンドを使います.
+%\begin{quote}
+%\begin{verbatim}
+%     $ scp <コピー元ファイル名> <コピー先ファイル名>
+%\end{verbatim}
+%  \end{quote}
+%ネットワーク経由でのコピー元, コピー先の指定は
+%\verb|<ユーザ名>＠<IP アドレス or ホスト名>:|をファイル名の前に書きます.
+%\begin{quote}
+%\begin{verbatim}
+%ex1) $ scp sample.txt venus.hoge.ac.jp:test
+%ex2) $ scp miso@venus.hoge.ac.jp:temp.txt .
+%\end{verbatim}
+%\end{quote}
+%上の\verb|ex1)|では,
+%sample.txt を venus.hoge.ac.jp 上の
+%\verb|~/test|ディレクトリにコピーしています.
+%\verb|ex2)|では,
+%venus.hoge.ac.jp のユーザ miso さんの\verb|~/temp.txt|をカレントディレクトリに
+%コピーしています.
+
+
+
+%% \section{その他研究室特有の計算機設定}
+%%無線 LAN の使い方, MATLAB の使い方は裏頁等, ほかに移動して, このドキュ
+%%メントは「はじめてのインストールガイド」と位置づけたい.
+
+%% \subsection{ノート PC の無線 LAN 設定}
+%% \subsubsection{ノ-トパソコンで無線 LAN を利用する (検証まだあり)}
+
+%% ノ-トパソコンを持っているときはぜひ活用してください.
+%% しかし, まだ未対応のカ-ドもありますので, 注意してください.
+%% \begin{enumerate}
+%% \item パソコンを起動する.
+%% \item 起動したら無線 LAN カ-ドをパソコン横のスロットに差し込む.
+%% ぴぴっと音が鳴ったことを確認する.
+%% \item ログインして, root になる.
+%% \item ちゃんと認識しているか確認する (以下のように製品の会社名などがでたら OK).
+%% \begin{verbatim}
+%% # cardctl ident
+
+%% Socket 0:
+%%   product info: "MELCO", "WLI-PCM-L11", "Version 01.01", ""
+%%   manfid: 0x0156, 0x0002
+%%   function: 6 (network)
+%% Socket 1:
+%%   no product info available
+%% \end{verbatim}
+%% \item どのデバイスに接続されているか確認する.
+%% \begin{verbatim}
+%% # iwconfig eth0
+%% \end{verbatim}
+%% もしくは
+%% \begin{verbatim}
+%% # iwconfig eth1
+%% \end{verbatim}
+%% を実行して, 以下のような出力がでたら OK.
+%% \begin{verbatim}
+%% eth1      IEEE 802.11-DS  ESSID:""  Nickname:""
+%%           Mode:Managed  Frequency:2.412GHz  Access Point: 00:00:00:00:00:00
+%%           Bit Rate:11Mb/s   Tx-Power=15 dBm   Sensitivity:1/3  
+%%           Retry limit:4   RTS thr:off   Fragment thr:off
+%%           Encryption key:off
+%%           Power Management:off
+%%           Link Quality:50/92  Signal level:-45 dBm  Noise level:-95 dBm
+%%           Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:11
+%%           Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+%% \end{verbatim}
+%% \item 
+%% エディタで \verb|/etc/pcmcia/wireless.opts| の一部を変更する. 変更する
+%% 箇所は 3 つで, 
+%% \verb|ESSID="0007409685DE", KEY="s<パスワード>",MODE="Managed"| 
+%% です. 他は以下のようにコメントし, パスワ-ドは研究室のヒトに聞いてください.
+%% \begin{verbatim}
+%% # Lucent Wavelan IEEE (+ Orinoco, RoamAbout and ELSA)
+%% # Melco/Buffalo Networks WLI-PCM-L11
+%% # Note : wvlan_cs driver only, and version 1.0.4+ for encryption support
+%% *,*,*,00:60:1D:*|*,*,*,00:02:2D:*)
+%% #    INFO="Wavelan IEEE example (Lucent default settings)"
+%%     ESSID="0007409685DE"
+%%     MODE="Managed"
+%% #    RATE="auto"
+%%     KEY="s:<パスワ-ド>"
+%% # To set all four keys, use :
+%% #   KEY="s:secu1 [1] key s:secu2 [2] key s:secu3 [3] key s:secu4 [4] key [1]"
+%% # For the RG 1000 Residential Gateway: The ESSID is the identifier on
+%% # the unit, and the default key is the last 5 digits of the same.
+%% #   ESSID="084d70"
+%% #   KEY="s:84d70"
+%%     ;;
+%% \end{verbatim}
+%% \item \verb|/etc/sysconfig/network-scripts/ifcfg-eth<整数>| を以下のように
+%% 作成してください. なお, 整数は iwconfig eth<整数> と同じ
+%% ものにしてください.
+%% \begin{verbatim}
+%% DEVICE=eth&lt;上の整数と同じ数>
+%% USERCTL=no
+%% ONBOOT=no
+%% BOOTPROTO=dhcp
+%% BROADCAST=
+%% NETWORK=
+%% NETMASK=
+%% IPADDR=
+%% \end{verbatim}
+%% \item 
+%% 以上は何度も設定する必要はありません.
+%% \item 無線 LAN の内容を以下のコマンドで設定する.
+%% \begin{verbatim}
+%% # ./etc/pcmcia/wireless start eth<整数>
+%% \end{verbatim}
+%% \item 
+%% 無線 LAN でネットワ-クに接続する.
+%% \begin{verbatim}
+%% # ifup eth<整数>
+%% \end{verbatim}
+%% \end{enumerate}
+%% 以上で終わりです.
+
+%% 無線のカ-ドによってはまだまだ未対応のものもありますので,
+%% 設定できない場合は誰か (谷合ならいつでもどうぞ) を捕まえて聞いてください.
+
+%% \subsection{Matlab の利用}
+
+%% \subsubsection{Matlab の利用方法}
+
+%% \begin{enumerate}
+%% \item 自分のモニタで GUI 操作するために, Matlab サーバからの X の転送を許可します.
+
+%%       \begin{verbatim}
+%%       [yosi@(自分のマシンのホスト名) yosi]$ xhost +aris
+%%       \end{verbatim}
+
+%% \item 以下のように Matlab サーバにログインする. 
+
+%%       \begin{verbatim}
+%%       [yosi@triton yosi]$ ssh -X -l yosi aris
+%%       yosi@aris's password: 
+%%       Last login: Fri Sep 10 16:22:52 2004 from triton.bcl.sci.yamaguchi-u.ac.jp
+%%       [yosi@aris yosi]$ 
+%%       \end{verbatim}
+
+%%       -X オプションは X の forward をするためのオプションです (オプションつけなくて
+%%       もできるかも)
+ 
+%% \item Matlab のプログラムを実行する.
+
+%%       \begin{verbatim}
+%%       [yosi@aris yosi]$ /usr/local/bin/matlab &
+%%       \end{verbatim}
+
+%% \item 少し時間がたつと, Matlab の画面がでてくる.
+%% \end{enumerate}
+
+%% \subsubsection{注意事項}
+
+%%   Matlab を起動できるのは同時には一人しか使えません. 下のようなエラ
+%% ーが出ると他の人が使っていることになります.
+
+%% \begin{verbatim}
+%% [yosi@aris yosi]# /usr/local/bin/matlab
+
+%% License Manager Error -4.
+%% Maximum number of users for MATLAB reached.
+%% Try again later.
+%% To see a list of current users use the lmstat utility.
+%% [yosi@yosi root]#
+%% \end{verbatim}
+
+%% \subsubsection{Matlab を起動してから}
+%% マニュアル等は日本語の Matlab の会社の HP や, 研究室のロッカー兼本棚の一番右端の
+%% 上から 3 番目のところ (なんて言えばいいのかな) においてあるので, お読み下さい.
+
+\section{計算機管理情報}
+
+\subsection{スーパーユーザー (root) での操作}
+
+! 注意 ! スーパーユーザー (root) になると全てのファイルに対して変更・削除可能になります.
+大切なファイルを消してしまわないように, root での作業は十分に注意して行ってください.
+
+普段プログラム等を作る時は一般ユーザーの権限でログインします.
+システム設定 (ダウンロードしたプログラムのインストール等) などの時は root
+権限でログインするか, もしくは以下のコマンドで一時的に root になります.
+\begin{verbatim}
+$ su -
+\end{verbatim}
+
+
+\subsection{アカウント作成法 (研究室用)}
+研究室の計算機に新しいアカウントを作る時には, 以下のようにまず, venus
+にアカウントを作ってから, 次に zeus でメールアカウントの作成を行います.
+\subsubsection{venus にアカウントを作る}
+\begin{enumerate}
+\item アカウント名 anyone を作るには  venus 上で root 権限で以下を実行
+  します.
+  \textbf{以下で}\verb|<anyone>|\textbf{とある部分は全て新しくつくるア
+    カウント名に置きかえて下さい. }
+  \begin{itemize}
+  \item まじめにやるとき
+    \begin{enumerate}
+    \item アカウントを作る
+\begin{verbatim}
+# /usr/sbin/adduser -g users -d /home/venus/<anyone> <anyone>
+\end{verbatim}
+%    \item quota の設定します.
+%\begin{verbatim}
+%  # /usr/sbin/setquota <anyone> /dev/sdb1 200000 250000 0 0
+%\end{verbatim}
+    \item NIS によるアカウント共有をするために以下を実行します.
+\begin{verbatim}
+# cd /var/yp
+# make all
+\end{verbatim}
+    \end{enumerate}
+
+  \item 手を抜く方法 (おすすめ)
+    \begin{quote}
+      ここまでの作業をまとめて行う shell script を作ってあります.
+\begin{verbatim}
+# /home/venus/adm/bin/add_bclusr.sh <anyone>
+\end{verbatim}
+    \end{quote}
+  \end{itemize}
+\item パスワードの発行 (あとで変更できます)
+\begin{verbatim}
+# passwd <anyone>
+\end{verbatim}
+\item メールアカウント作成のために, ユーザ ID を確認しておきます.
+\begin{verbatim}
+# id <anyone>
+\end{verbatim}
+\end{enumerate}
+
+
+
+\subsubsection{zeus にメールアカウントを作る}
+\begin{enumerate}
+	\item zeus でのアカウント作成 (ID 番号は venus のアカウント作成で最後に確認
+	      したユーザー ID を入力)
+\begin{verbatim}
+# /usr/sbin/adduser -u ID 番号 -g users <anyone>
+\end{verbatim}
+	\item パスワードの発行 (あとで変更できます)
+\begin{verbatim}
+# passwd <anyone>
+\end{verbatim}
+%	\item メール用のパスワードの設定
+%\begin{verbatim}
+%# /usr/sbin/popauth <anyone> パスワード
+%\end{verbatim}
+%	\item パスワードの変更
+%	      各ユーザーには zeus でメール用パスワードを変更してもらいます.
+%	      zeus にはユーザーアカウントではログインはできないので, zeus に root でログ
+%	      インした後, 以下を実行します.
+%\begin{verbatim}
+%# su <anyone>       (ユーザー anyone になります)
+%$ /usr/sbin/popauth (メールアカウントの変更)
+%\end{verbatim}
+	\item \verb|/home/adm/bin| にある IMAP ユーザの登録シェルを実行.
+	      メール用パスワードを求められるので設定する.
+\begin{verbatim}
+# cd /home/adm/bin
+# ./setMailUser.sh <anyone>
+\end{verbatim}
+\end{enumerate}
+「 BCL 裏ページ/ 研究室のメール環境」にも設定方法が記載されているので,
+そちらも参照してください.
+
+
+
+\subsection{パスワードの変更}
+各ユーザーはログイン後, コマンド\verb|passwd|で自分の
+パスワードを変更できます.
+\begin{verbatim}
+    $ passwd (この後パスワードの入力を 2 回求められます).
+\end{verbatim}
+
+
+\section{この文書について}
+
+この文書は, cvs で管理されています. cvs レポジトリ名は text です.
+その他, 研究室の掟集や演習も同じレポジトリです.
+cvs の使いかたは
+\begin{quote}
+\url{http://bcl.sci.yamaguchi-u.ac.jp/texts/unix.html}
+\end{quote}
+にある「 CVS (バージョン管理ツール) の使い方」を見てください.
+\end{document}
