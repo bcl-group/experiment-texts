@@ -18,7 +18,7 @@
 \today 版\\
 西井 淳
 \end{flushright}
-\rule{\linewidth}{0.3pt} 
+\rule{\linewidth}{0.3pt}
 \newpage
 {\small
 %% \begin{screen}
@@ -73,21 +73,21 @@ $ shutdown -h now
 \begin{tabular}[t]{llll}\hline
 IP アドレス &	名称 &					ニックネーム &
 備考 \\ \hline
-133.62.236.98 &	muse.bcl.sci.yamaguchi-u.ac.jp &	muse & 先生\\ 
-133.62.236.99 &	fs.bcl.sci.yamaguchi-u.ac.jp &	fs & 先生\\ 
-133.62.236.101 &lento.bcl.sci.yamaguchi-u.ac.jp&	lento & 先生\\ 
-133.62.236.102 &largo.bcl.sci.yamaguchi-u.ac.jp &	largo & 先生\\ 
-133.62.236.103 &poco.bcl.sci.yamaguchi-u.ac.jp &	poco & 先生\\ 
-133.62.236.104 &dolce.bcl.sci.yamaguchi-u.ac.jp &	dolce & 先生\\ 
+133.62.236.98 &	muse.bcl.sci.yamaguchi-u.ac.jp &	muse & 先生\\
+133.62.236.99 &	fs.bcl.sci.yamaguchi-u.ac.jp &	fs & 先生\\
+133.62.236.101 &lento.bcl.sci.yamaguchi-u.ac.jp&	lento & 先生\\
+133.62.236.102 &largo.bcl.sci.yamaguchi-u.ac.jp &	largo & 先生\\
+133.62.236.103 &poco.bcl.sci.yamaguchi-u.ac.jp &	poco & 先生\\
+133.62.236.104 &dolce.bcl.sci.yamaguchi-u.ac.jp &	dolce & 先生\\
 133.62.236.105 &nyx.bcl.sci.yamaguchi-u.ac.jp   &       nyx & 先生\\
-133.62.236.115 &chloe.bcl.sci.yamaguchi-u.ac.jp &	chloe & 先生\\ 
-133.62.236.118 &zeus.bcl.sci.yamaguchi-u.ac.jp &	zeus & Mail ・ Web ・ WebDAV サーバ\\ 
-% 133.62.236.119 &mimir.bcl.sci.yamaguchi-u.ac.jp &	mimir & eLearning サーバ\\ 
-133.62.236.122 &vaio.bcl.sci.yamaguchi-u.ac.jp &	vaio & 先生\\ 
-133.62.236.124 &scan.bcl.sci.yamaguchi-u.ac.jp &	scan & 先生\\ 
-133.62.236.126 &sun.bcl.sci.yamaguchi-u.ac.jp &		sun & 先生\\ 
+133.62.236.115 &chloe.bcl.sci.yamaguchi-u.ac.jp &	chloe & 先生\\
+133.62.236.118 &zeus.bcl.sci.yamaguchi-u.ac.jp &	zeus & Mail ・ Web ・ WebDAV サーバ\\
+% 133.62.236.119 &mimir.bcl.sci.yamaguchi-u.ac.jp &	mimir & eLearning サーバ\\
+133.62.236.122 &vaio.bcl.sci.yamaguchi-u.ac.jp &	vaio & 先生\\
+133.62.236.124 &scan.bcl.sci.yamaguchi-u.ac.jp &	scan & 先生\\
+133.62.236.126 &sun.bcl.sci.yamaguchi-u.ac.jp &		sun & 先生\\
 \hline
-192.168.0.1 &	gateway.bcl.sci.yamaguchi-u.ac.jp &	gateway router & 研究室内ルータ\\ 
+192.168.0.1 &	gateway.bcl.sci.yamaguchi-u.ac.jp &	gateway router & 研究室内ルータ\\
 192.168.0.2 &	wlan1.bcl.sci.yamaguchi-u.ac.jp &	wlan1 wireless1 & 無線 LAN アクセスポイント\\
 192.168.0.3 &	whub.bcl.sci.yamaguchi-u.ac.jp &	whub & 無線 HUB\\
 192.168.0.11 &	sirius.bcl.sci.yamaguchi-u.ac.jp &	sirius prn1 &	Xerox プリンタ \\
@@ -222,7 +222,7 @@ PC に電源を入れた直後にインストールディスクを入れると, 
 それでもダメなら BIOS の設定を変更して, CD-ROM の起動順位を一番最初にしてください.
 
 \subsection{Linux (OS) のインストール}
-	\begin{itemize} 
+	\begin{itemize}
 	\item 原則, アップグレードでは無くて"新規インストール"をする.
 	\item インストールの種類は「全てをインストール」を選択.
 	\item ディスクパーティションの設定は「 Disk Druid を使用して手動パーティション設定」を選択.
@@ -314,26 +314,6 @@ PC に電源を入れた直後にインストールディスクを入れると, 
 以上で Vine Linux のインストール完了です. インストール後の設定へ進みましょう.
 インストールは失敗したら何回でもやり直せるので, 気楽にどうぞ.
 
-%\subsection{FTP を使ってインストール}
-%
-%ブート USB メモリ (HTTP/NFS/FTP 対応) を用意して, Linux をインストー
-%ルしたいマシンを起動してください.
-
-%\begin{enumerate}
-%	\item boot プロンプトが出てきたら Enter を押す.
-%	\item Japanese を選択する.
-%	\item Keyboard Type の選択をする.
-%	\item Installation Method の選択をする.
-%	\item FTP image の選択をする.
-%	\item Configure TCP/IP の設定をする.
-%%ここでは, IP Address (133.62.236.xxx), Netmask (255.255.255.224)
-%%の 2 つの設定を行えばよい. xxx には自分のマシンの所有する IP アド
-%%レスを当てはめて使おう.
-%	\item  FTP/NFS Setup の設定をする.
-%%FTP server name  に\verb|ftp.info.sci.yamaguchi-u.ac.jp|を,
-%%Vine Linux directory に\\\verb|/pub/VineLinux/Vine-3.2/i386|を入力する.
-%	\item  あとはインストールディスクを使う場合と同じです.
-%\end{enumerate}
 
 \section{インストール後の設定}
 
@@ -457,23 +437,6 @@ apt の詳しい使い方はオンラインマニュアルや,
 \url{http://bcl.sci.yamaguchi-u.ac.jp/?Texts}
 にある「 UNIX/LINUX の基本操作」を見てください.
 
-%\subsection{OpenOffice.org をインストール}
-%
-%OpenOffice.org は Microsoft Office のファイルの読み込みもできる, オフィスソフトパックです.
-%表計算, 文章作成, プレゼン資料作成等いろいろできます.
-%以下のようにしてインストーラーを起動し, 画面の指示に従ってインストールしましょう.
-%\begin{verbatim}
-%# /home/public/openoffice.org/setup
-%\end{verbatim}
-%\subsection{StarSuite をインストール}
-%
-%StarSuite は Microsoft Office のファイルの読み込みもできる, オフィスソフトパックです.
-%表計算, 文章作成, プレゼン資料作成等いろいろできます.
-%以下のようにしてインストールしましょう.
-%\begin{verbatim}
-%# cd /home/public/unpack_starsuite/RPMS
-%# rpm -ivh star*.rpm
-%\end{verbatim}
 
 \subsection{システムサービスの設定}\label{tab:SS}
 
@@ -673,7 +636,7 @@ server  ntp.cc.yamaguchi-u.ac.jp         # ←記入する
 %キーボードの [Ctrl]+[Alt]+[F1] を押してコンソールに移動します.
 %スーパーユーザ (root) でログインして, コンソール画面上で以下を実行します.
 %\begin{verbatim}
-%    # init 3   ←この後数秒待って, 止まったら Enter   
+%    # init 3   ←この後数秒待って, 止まったら Enter
 %    # init 5
 %\end{verbatim}
 %グラフィカルのログイン画面がでてくれば OK です.
@@ -754,10 +717,10 @@ title Vine Linux (Previous kernel)
 %\subsection{アップグレードした時に必要な, 個人設定変更 (Vine Linux 3.x から 4.x へ)\label{sec:private}}
 %
 %アップグレード時には, 各人以下の作業を行ってください. (新規ユーザの人はこの作業は必要ありません).
-%なお, \textbf{以下の作業は, X window からログアウトして, コンソール上で行うこと}. 
+%なお, \textbf{以下の作業は, X window からログアウトして, コンソール上で行うこと}.
 %
 %\begin{enumerate}
-%	\item 古い設定ファイルをバックアップ (しばらくして, 問題なければ消してよい). 
+%	\item 古い設定ファイルをバックアップ (しばらくして, 問題なければ消してよい).
 %		\begin{quote}
 %\begin{verbatim}
 %$ mkdir oldconfig
@@ -792,53 +755,8 @@ $ LANG=C xdg-user-dirs-gtk-update
 \end{verbatim}
 設定ウィンドウが立ち上がるので設定を変更する.
 
-\subsection{E メールの設定}
-
-\subsubsection{E メールアドレスについて}
-
-研究室に配属された人には, \verb|<ユーザ名>@bcl.sci.yamaguchi-u.ac.jp|
-というメールアドレスを用意しています.
-ほかに, 研究室に所属する人全員にメールが送られるメーリングリスト
-\verb|members@bcl.sci.yamaguchi-u.ac.jp| があります.
-
-\subsubsection{メーラについて}
-%メーラにはいろいろありますが, sylpheed や thunderbird が軽くて人気があり
-%ます. sylpheed は WindowMaker のアイコンから起動します.
-%thunderbird は firefox (mozilla の軽量版) との兄弟ソフトで,
-メーラにはいろいろありますが, thunderbird や sylpheed が人気があります.
-%\begin{verbatim}
-%# apt-get install thunderbird
-%\end{verbatim}
-%でインストールできます.
-% emacs 上で動くメーラ mew も根強い人気があります. mew の設定は
-% \verb|~/etc/emacs/mew.emacs-4.1.el|を編集します.
-
-メーラによらない共通の設定は以下のとおりです.
-
-\begin{tabular}[t]{ll}\hline
-受信メールプロトコル & imap\\
-受信メールサーバ & zeus.bcl.sci.yamaguchi-u.ac.jp\\
-SMTP サーバ (送信用サーバ)& zeus.bcl.sci.yamaguchi-u.ac.jp\\\hline
-\end{tabular}
-
-\subsubsection{学外からメールを読む}
-
-研究室にとどいている Email を学外から見ることができます.
-firefox 等のブラウザがあれば, 世界中どこからでもメー
-ルをみれます (日本語フォントがないと文字化けしますが).
-研究室の裏ページからリンクをはってるので, 是非活用してください.
-いずれも接続方法は IMAP, ログインにはメール用のパスワードを使います.
-%% また, メールの操作として「削除」は行っても OK ですが, 「フォルダへ移動」と
-%% いう項目は (メニューにあっても) 使わないで下さい.
-%% メールの整理は学校に来てから mew とか sylpheed などでいつものように行って下さい.
-
-\subsubsection{メールの転送について\label{sec:forward}}
-
-大学の計算機センタ等, 研究室以外で受け取ってるメールをを研究室に転送したり,
-どこかでかけるとき研究室に届いたメールをどこかに転送したりすることができます.
-設定方法は「 UNIX/LINUX の基本操作」第 5 章の「メール転送について」の節をどうぞ.
-
-
+\subsection{メーラの設定}
+メディア基盤センターのページを参照して，メールソフト(thunderbird等)の設定をしましょう。
 
 \subsection{スケジューラ (Google Calendar) の設定}
 
@@ -871,7 +789,7 @@ index.html を編集して, \verb|make install| すれば OK です.
 %\begin{itemize}
 %	\item telnet, rsh は研究室内でのみ有効
 %	\item 研究室外からの接続は ssh (暗号化通信を行う) に限定
-%	\item 学外からの接続 (各種プロバイダ等から) の接続は www.info.sci.yamaguchi-u.ac.jp に ssh 
+%	\item 学外からの接続 (各種プロバイダ等から) の接続は www.info.sci.yamaguchi-u.ac.jp に ssh
 %	      で接続した後, 各ホストに ssh 等で接続. このためのアカウントが必要な人は申請して
 %  ください.
 %\end{itemize}
@@ -913,156 +831,6 @@ index.html を編集して, \verb|make install| すれば OK です.
 %venus.hoge.ac.jp のユーザ miso さんの\verb|~/temp.txt|をカレントディレクトリに
 %コピーしています.
 
-
-
-%% \section{その他研究室特有の計算機設定}
-%%無線 LAN の使い方, MATLAB の使い方は裏頁等, ほかに移動して, このドキュ
-%%メントは「はじめてのインストールガイド」と位置づけたい.
-
-%% \subsection{ノート PC の無線 LAN 設定}
-%% \subsubsection{ノ-トパソコンで無線 LAN を利用する (検証まだあり)}
-
-%% ノ-トパソコンを持っているときはぜひ活用してください.
-%% しかし, まだ未対応のカ-ドもありますので, 注意してください.
-%% \begin{enumerate}
-%% \item パソコンを起動する.
-%% \item 起動したら無線 LAN カ-ドをパソコン横のスロットに差し込む.
-%% ぴぴっと音が鳴ったことを確認する.
-%% \item ログインして, root になる.
-%% \item ちゃんと認識しているか確認する (以下のように製品の会社名などがでたら OK).
-%% \begin{verbatim}
-%% # cardctl ident
-
-%% Socket 0:
-%%   product info: "MELCO", "WLI-PCM-L11", "Version 01.01", ""
-%%   manfid: 0x0156, 0x0002
-%%   function: 6 (network)
-%% Socket 1:
-%%   no product info available
-%% \end{verbatim}
-%% \item どのデバイスに接続されているか確認する.
-%% \begin{verbatim}
-%% # iwconfig eth0
-%% \end{verbatim}
-%% もしくは
-%% \begin{verbatim}
-%% # iwconfig eth1
-%% \end{verbatim}
-%% を実行して, 以下のような出力がでたら OK.
-%% \begin{verbatim}
-%% eth1      IEEE 802.11-DS  ESSID:""  Nickname:""
-%%           Mode:Managed  Frequency:2.412GHz  Access Point: 00:00:00:00:00:00
-%%           Bit Rate:11Mb/s   Tx-Power=15 dBm   Sensitivity:1/3  
-%%           Retry limit:4   RTS thr:off   Fragment thr:off
-%%           Encryption key:off
-%%           Power Management:off
-%%           Link Quality:50/92  Signal level:-45 dBm  Noise level:-95 dBm
-%%           Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:11
-%%           Tx excessive retries:0  Invalid misc:0   Missed beacon:0
-%% \end{verbatim}
-%% \item 
-%% エディタで \verb|/etc/pcmcia/wireless.opts| の一部を変更する. 変更する
-%% 箇所は 3 つで, 
-%% \verb|ESSID="0007409685DE", KEY="s<パスワード>",MODE="Managed"| 
-%% です. 他は以下のようにコメントし, パスワ-ドは研究室のヒトに聞いてください.
-%% \begin{verbatim}
-%% # Lucent Wavelan IEEE (+ Orinoco, RoamAbout and ELSA)
-%% # Melco/Buffalo Networks WLI-PCM-L11
-%% # Note : wvlan_cs driver only, and version 1.0.4+ for encryption support
-%% *,*,*,00:60:1D:*|*,*,*,00:02:2D:*)
-%% #    INFO="Wavelan IEEE example (Lucent default settings)"
-%%     ESSID="0007409685DE"
-%%     MODE="Managed"
-%% #    RATE="auto"
-%%     KEY="s:<パスワ-ド>"
-%% # To set all four keys, use :
-%% #   KEY="s:secu1 [1] key s:secu2 [2] key s:secu3 [3] key s:secu4 [4] key [1]"
-%% # For the RG 1000 Residential Gateway: The ESSID is the identifier on
-%% # the unit, and the default key is the last 5 digits of the same.
-%% #   ESSID="084d70"
-%% #   KEY="s:84d70"
-%%     ;;
-%% \end{verbatim}
-%% \item \verb|/etc/sysconfig/network-scripts/ifcfg-eth<整数>| を以下のように
-%% 作成してください. なお, 整数は iwconfig eth<整数> と同じ
-%% ものにしてください.
-%% \begin{verbatim}
-%% DEVICE=eth&lt;上の整数と同じ数>
-%% USERCTL=no
-%% ONBOOT=no
-%% BOOTPROTO=dhcp
-%% BROADCAST=
-%% NETWORK=
-%% NETMASK=
-%% IPADDR=
-%% \end{verbatim}
-%% \item 
-%% 以上は何度も設定する必要はありません.
-%% \item 無線 LAN の内容を以下のコマンドで設定する.
-%% \begin{verbatim}
-%% # ./etc/pcmcia/wireless start eth<整数>
-%% \end{verbatim}
-%% \item 
-%% 無線 LAN でネットワ-クに接続する.
-%% \begin{verbatim}
-%% # ifup eth<整数>
-%% \end{verbatim}
-%% \end{enumerate}
-%% 以上で終わりです.
-
-%% 無線のカ-ドによってはまだまだ未対応のものもありますので,
-%% 設定できない場合は誰か (谷合ならいつでもどうぞ) を捕まえて聞いてください.
-
-%% \subsection{Matlab の利用}
-
-%% \subsubsection{Matlab の利用方法}
-
-%% \begin{enumerate}
-%% \item 自分のモニタで GUI 操作するために, Matlab サーバからの X の転送を許可します.
-
-%%       \begin{verbatim}
-%%       [yosi@(自分のマシンのホスト名) yosi]$ xhost +aris
-%%       \end{verbatim}
-
-%% \item 以下のように Matlab サーバにログインする. 
-
-%%       \begin{verbatim}
-%%       [yosi@triton yosi]$ ssh -X -l yosi aris
-%%       yosi@aris's password: 
-%%       Last login: Fri Sep 10 16:22:52 2004 from triton.bcl.sci.yamaguchi-u.ac.jp
-%%       [yosi@aris yosi]$ 
-%%       \end{verbatim}
-
-%%       -X オプションは X の forward をするためのオプションです (オプションつけなくて
-%%       もできるかも)
- 
-%% \item Matlab のプログラムを実行する.
-
-%%       \begin{verbatim}
-%%       [yosi@aris yosi]$ /usr/local/bin/matlab &
-%%       \end{verbatim}
-
-%% \item 少し時間がたつと, Matlab の画面がでてくる.
-%% \end{enumerate}
-
-%% \subsubsection{注意事項}
-
-%%   Matlab を起動できるのは同時には一人しか使えません. 下のようなエラ
-%% ーが出ると他の人が使っていることになります.
-
-%% \begin{verbatim}
-%% [yosi@aris yosi]# /usr/local/bin/matlab
-
-%% License Manager Error -4.
-%% Maximum number of users for MATLAB reached.
-%% Try again later.
-%% To see a list of current users use the lmstat utility.
-%% [yosi@yosi root]#
-%% \end{verbatim}
-
-%% \subsubsection{Matlab を起動してから}
-%% マニュアル等は日本語の Matlab の会社の HP や, 研究室のロッカー兼本棚の一番右端の
-%% 上から 3 番目のところ (なんて言えばいいのかな) においてあるので, お読み下さい.
 
 \section{計算機管理情報}
 
@@ -1126,41 +894,6 @@ $ su -
 
 
 
-\subsubsection{zeus にメールアカウントを作る}
-\begin{enumerate}
-	\item zeus でのアカウント作成 (ID 番号は venus のアカウント作成で最後に確認
-	      したユーザー ID を入力)
-\begin{verbatim}
-# /usr/sbin/adduser -u ID 番号 -g users <anyone>
-\end{verbatim}
-	\item パスワードの発行 (あとで変更できます)
-\begin{verbatim}
-# passwd <anyone>
-\end{verbatim}
-%	\item メール用のパスワードの設定
-%\begin{verbatim}
-%# /usr/sbin/popauth <anyone> パスワード
-%\end{verbatim}
-%	\item パスワードの変更
-%	      各ユーザーには zeus でメール用パスワードを変更してもらいます.
-%	      zeus にはユーザーアカウントではログインはできないので, zeus に root でログ
-%	      インした後, 以下を実行します.
-%\begin{verbatim}
-%# su <anyone>       (ユーザー anyone になります)
-%$ /usr/sbin/popauth (メールアカウントの変更)
-%\end{verbatim}
-	\item \verb|/home/adm/bin| にある IMAP ユーザの登録シェルを実行.
-	      メール用パスワードを求められるので設定する.
-\begin{verbatim}
-# cd /home/adm/bin
-# ./setMailUser.sh <anyone>
-\end{verbatim}
-\end{enumerate}
-「 BCL 裏ページ/ 研究室のメール環境」にも設定方法が記載されているので,
-そちらも参照してください.
-
-
-
 \subsection{パスワードの変更}
 各ユーザーはログイン後, コマンド\verb|passwd|で自分の
 パスワードを変更できます.
@@ -1171,11 +904,13 @@ $ su -
 
 \section{この文書について}
 
-この文書は, cvs で管理されています. cvs レポジトリ名は text です.
-その他, 研究室の掟集や演習も同じレポジトリです.
-cvs の使いかたは
-\begin{quote}
-\url{http://bcl.sci.yamaguchi-u.ac.jp/texts/unix.html}
-\end{quote}
-にある「 CVS (バージョン管理ツール) の使い方」を見てください.
+この文書は, GitHub で管理されています.
+ダウンロード(第１回目のダウンロードのみ)は以下のコマンドで行えます。
+\begin{verbatim}
+$ git clone https://github.com/bcl-group/paper-walking-synergy.git
+\end{verbatim}
+
+一度ダウンロードした後に，最新版にするにはgit pullを，自分が更新した情報を反映するには
+git pushコマンドを使います。GitHub の使いかたは西井のホームページを参照しましょう。
+
 \end{document}
