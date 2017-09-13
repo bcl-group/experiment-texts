@@ -87,17 +87,17 @@ IP アドレス &	名称 &					ニックネーム &
 133.62.236.124 &scan.bcl.sci.yamaguchi-u.ac.jp &	scan & 先生\\
 133.62.236.126 &sun.bcl.sci.yamaguchi-u.ac.jp &		sun & 先生\\
 \hline
-192.168.0.1 &	gateway.bcl.sci.yamaguchi-u.ac.jp &	gateway router & 研究室内ルータ\\
-192.168.0.2 &	wlan1.bcl.sci.yamaguchi-u.ac.jp &	wlan1 wireless1 & 無線 LAN アクセスポイント\\
-192.168.0.3 &	whub.bcl.sci.yamaguchi-u.ac.jp &	whub & 無線 HUB\\
-192.168.0.11 &	sirius.bcl.sci.yamaguchi-u.ac.jp &	sirius prn1 &	Xerox プリンタ \\
-192.168.0.12 &	nike.bcl.sci.yamaguchi-u.ac.jp &	nike prn2 &	canon インクジェットプリンタ \\
-192.168.0.13 &	canon.bcl.sci.yamaguchi-u.ac.jp &	canon &		大判プリンタ \\
+10.250.128.1 &	gateway.bcl.sci.yamaguchi-u.ac.jp &	gateway router & 研究室内ルータ\\
+10.250.128.2 &	wlan1.bcl.sci.yamaguchi-u.ac.jp &	wlan1 wireless1 & 無線 LAN アクセスポイント\\
+% 192.168.0.3 &	whub.bcl.sci.yamaguchi-u.ac.jp &	whub & 無線 HUB\\
+10.250.128.11 &	sirius.bcl.sci.yamaguchi-u.ac.jp &	sirius prn1 &	Xerox プリンタ \\
+10.250.128.12 &	nike.bcl.sci.yamaguchi-u.ac.jp &	nike prn2 &	canon インクジェットプリンタ \\
+10.250.128.13 &	canon.bcl.sci.yamaguchi-u.ac.jp &	canon &		大判プリンタ \\
 % 192.168.0.50 &	clio.bcl.sci.yamaguchi-u.ac.jp &	clio &		計測マシン \\
 % 192.168.0.51 &	khaos.bcl.sci.yamaguchi-u.ac.jp &	khaos &		計測マシン \\
-192.168.0.60 &	aither.bcl.sci.yamaguchi-u.ac.jp &      aither &	iMac \\
+% 192.168.0.60 &	aither.bcl.sci.yamaguchi-u.ac.jp &      aither &	iMac \\
 % 192.168.0.80 &	apollo.bcl.sci.yamaguchi-u.ac.jp &	apollo &	計算サーバ \\
-192.168.0.100 &	venus.bcl.sci.yamaguchi-u.ac.jp &	venus &		NIS ・ NFS ・ MATLAB ライセンスサーバ\\
+10.250.128.100 &	venus.bcl.sci.yamaguchi-u.ac.jp &	venus &		NIS ・ NFS ・ MATLAB ライセンスサーバ\\
 \hline
 \end{tabular}
 \end{table}
@@ -108,66 +108,80 @@ IP アドレス &	名称 &					ニックネーム &
 \caption{研究室の個人マシン IP 一覧 192.168.0.101 〜 192.168.0.150 } \label{tab:IP2}
 \begin{tabular}[t]{llll}\hline
 IP アドレス &	名称 &					ニックネーム &	備考 \\ \hline
-192.168.0.101 &	aglaia.bcl.sci.yamaguchi-u.ac.jp &	aglaia & \\
-192.168.0.102 &	altair.bcl.sci.yamaguchi-u.ac.jp &	altair & \\
-192.168.0.103 &	aphrodite.bcl.sci.yamaguchi-u.ac.jp &	aphrodite & \\
-192.168.0.104 &	arion.bcl.sci.yamaguchi-u.ac.jp &	arion & \\
-192.168.0.105 &	artemis.bcl.sci.yamaguchi-u.ac.jp &	artemis & \\
-192.168.0.106 &	athena.bcl.sci.yamaguchi-u.ac.jp &	athena & \\
-192.168.0.107 &	atlas.bcl.sci.yamaguchi-u.ac.jp &	atlas & \\
-192.168.0.108 &	bacchus.dcl.sci.yamaguchi-u.ac.jp &	bacchous & \\
-192.168.0.109 &	ceres.bcl.sci.yamaguchi-u.ac.jp &	ceres & \\
-192.168.0.110 &	coeus.bcl.sci.yamaguchi-u.ac.jp &	coeus &  \\
+10.250.128.110 & altair.bcl.sci.yamaguchi-u.ac.jp &	altair & \\
+10.250.128.111 &	fate.bcl.sci.yamaguchi-u.ac.jp &	fate & \\
+10.250.128.112 &	iris.bcl.sci.yamaguchi-u.ac.jp &	iris & \\
+10.250.128.113 &	jupiter.bcl.sci.yamaguchi-u.ac.jp &	jupiter & \\
+10.250.128.114 &	luna.bcl.sci.yamaguchi-u.ac.jp &	luna & \\
+10.250.128.115 &	odysseus.bcl.sci.yamaguchi-u.ac.jp &	odysseus & \\
+10.250.128.116 &	pandra.bcl.sci.yamaguchi-u.ac.jp &	pandra & \\
+10.250.128.117 &	vega.bcl.sci.yamaguchi-u.ac.jp &	vega & \\
+10.250.128.122 &	spica.bcl.sci.yamaguchi-u.ac.jp &	spica & \\
+
+% 旧IPアドレス
+% 192.168.0.101 &	aglaia.bcl.sci.yamaguchi-u.ac.jp &	aglaia & \\
+% 192.168.0.102 &	altair.bcl.sci.yamaguchi-u.ac.jp &	altair & \\
+% 192.168.0.103 &	aphrodite.bcl.sci.yamaguchi-u.ac.jp &	aphrodite & \\
+% 192.168.0.104 &	arion.bcl.sci.yamaguchi-u.ac.jp &	arion & \\
+% 192.168.0.105 &	artemis.bcl.sci.yamaguchi-u.ac.jp &	artemis & \\
+% 192.168.0.106 &	athena.bcl.sci.yamaguchi-u.ac.jp &	athena & \\
+% 192.168.0.107 &	atlas.bcl.sci.yamaguchi-u.ac.jp &	atlas & \\
+% 192.168.0.108 &	bacchus.dcl.sci.yamaguchi-u.ac.jp &	bacchous & \\
+% 192.168.0.109 &	ceres.bcl.sci.yamaguchi-u.ac.jp &	ceres & \\
+% 192.168.0.110 &	coeus.bcl.sci.yamaguchi-u.ac.jp &	coeus &  \\
 \hline
 \end{tabular}
 \end{table}
 }
+
+
 {\small
 \begin{table}[tbp]
 \centering
-%\caption{研究室の IP 一覧 192.168.0.126 〜} \label{tab:IP2}
+\caption{研究室の 余りホスト 一覧} \label{tab:host}
 \begin{tabular}[t]{llll}\hline
-IP アドレス &	名称 &					ニックネーム &	備考 \\ \hline
-192.168.0.111 &	demeter.bcl.sci.yamaguchi-u.ac.jp &	demeter & \\
-192.168.0.112 &	deneb.bcl.sci.yamaguchi-u.ac.jp &	deneb & \\
-192.168.0.113 &	dinoe.bcl.sci.yamaguchi-u.ac.jp &	dinoe & \\
-192.168.0.114 &	dionysos.bcl.sci.yamaguchi-u.ac.jp &	dionysos & \\
-192.168.0.115 &	endymion.bcl.sci.yamaguchi-u.ac.jp &	endymion & \\
-192.168.0.116 &	eos.bcl.sci.yamaguchi-u.ac.jp &		eos & \\
-192.168.0.117 &	erato.bcl.sci.yamaguchi-u.ac.jp &	erato & \\
-192.168.0.118 &	fate.bcl.sci.yamaguchi-u.ac.jp &	fate & \\
-192.168.0.119 &	gaia.bcl.sci.yamaguchi-u.ac.jp &	gaia & \\
-192.168.0.120 &	hades.bcl.sci.yamaguchi-u.ac.jp &	hades & \\
-192.168.0.121 &	hera.bcl.sci.yamaguchi-u.ac.jp &	hera & \\
-192.168.0.122 &	heracles.bcl.sci.yamaguchi-u.ac.jp &	heracles & \\
-192.168.0.123 &	hermes.bcl.sci.yamaguchi-u.ac.jp &	hermes & \\
-192.168.0.124 &	icurus.bcl.sci.yamaguchi-u.ac.jp &	icurus & \\
-192.168.0.125 &	io.bcl.sci.yamaguchi-u.ac.jp &		io & \\
-192.168.0.126 &	iris.bcl.sci.yamaguchi-u.ac.jp &	iris & \\
-192.168.0.127 &	juno.bcl.sci.yamaguchi-u.ac.jp &	juno & \\
-192.168.0.128 &	jupiter.bcl.sci.yamaguchi-u.ac.jp &	jupiter & \\
-192.168.0.129 &	loki.bcl.sci.yamaguchi-u.ac.jp &	loki & \\
-192.168.0.130 &	luna.bcl.sci.yamaguchi-u.ac.jp &	luna & \\
-192.168.0.131 &	mars.bcl.sci.yamaguchi-u.ac.jp &	mars & \\
-192.168.0.132 &	medusa.bcl.sci.yamaguchi-u.ac.jp &	medusa & \\
-192.168.0.133 &	nova.bcl.sci.yamaguchi-u.ac.jp &	nova & \\
-192.168.0.134 &	odysseus.bcl.sci.yamaguchi-u.ac.jp &	odysseus & \\
-192.168.0.135 &	orion.bcl.sci.yamaguchi-u.ac.jp &	orion & \\
-192.168.0.136 &	pandra.bcl.sci.yamaguchi-u.ac.jp &	pandra & \\
-192.168.0.137 &	persephone.bcl.sci.yamaguchi-u.ac.jp &	persephone & \\
-192.168.0.138 &	perseus.bcl.sci.yamaguchi-u.ac.jp &	perseus & \\
-192.168.0.139 &	pluto.bcl.sci.yamaguchi-u.ac.jp &	pluto & \\
-192.168.0.140 &	rhea.bcl.sci.yamaguchi-u.ac.jp &	rhea & \\
-192.168.0.141 &	rigel.bcl.sci.yamaguchi-u.ac.jp &	rigel & \\
-192.168.0.142 &	satyr.bcl.sci.yamaguchi-u.ac.jp &	satyr & \\
-192.168.0.143 &	spica.bcl.sci.yamaguchi-u.ac.jp &	spica & \\
-192.168.0.144 &	tchort.bcl.sci.yamaguchi-u.ac.jp &	tchort & \\
-192.168.0.145 &	titan.bcl.sci.yamaguchi-u.ac.jp &	titan & \\
-192.168.0.146 &	triton.bcl.sci.yamaguchi-u.ac.jp &	triton & \\
-192.168.0.147 &	uranos.bcl.sci.yamaguchi-u.ac.jp &	uranos & \\
-192.168.0.148 &	vega.bcl.sci.yamaguchi-u.ac.jp &	vega & \\
-192.168.0.149 &	walkure.bcl.sci.yamaguchi-u.ac.jp &	walkure & \\
-192.168.0.150 &	xibalba.bcl.sci.yamaguchi-u.ac.jp &	xibalba & \\
+名称 &					ニックネーム &	備考 \\ \hline
+aglaia.bcl.sci.yamaguchi-u.ac.jp &	aglaia & \\
+aphrodite.bcl.sci.yamaguchi-u.ac.jp &	aphrodite & \\
+arion.bcl.sci.yamaguchi-u.ac.jp &	arion & \\
+artemis.bcl.sci.yamaguchi-u.ac.jp &	artemis & \\
+athena.bcl.sci.yamaguchi-u.ac.jp &	athena & \\
+atlas.bcl.sci.yamaguchi-u.ac.jp &	atlas & \\
+bacchus.dcl.sci.yamaguchi-u.ac.jp &	bacchous & \\
+ceres.bcl.sci.yamaguchi-u.ac.jp &	ceres & \\
+coeus.bcl.sci.yamaguchi-u.ac.jp &	coeus &  \\
+demeter.bcl.sci.yamaguchi-u.ac.jp &	demeter & \\
+deneb.bcl.sci.yamaguchi-u.ac.jp &	deneb & \\
+dinoe.bcl.sci.yamaguchi-u.ac.jp &	dinoe & \\
+dionysos.bcl.sci.yamaguchi-u.ac.jp &	dionysos & \\
+endymion.bcl.sci.yamaguchi-u.ac.jp &	endymion & \\
+eos.bcl.sci.yamaguchi-u.ac.jp &		eos & \\
+erato.bcl.sci.yamaguchi-u.ac.jp &	erato & \\
+gaia.bcl.sci.yamaguchi-u.ac.jp &	gaia & \\
+hades.bcl.sci.yamaguchi-u.ac.jp &	hades & \\
+hera.bcl.sci.yamaguchi-u.ac.jp &	hera & \\
+heracles.bcl.sci.yamaguchi-u.ac.jp &	heracles & \\
+hermes.bcl.sci.yamaguchi-u.ac.jp &	hermes & \\
+icurus.bcl.sci.yamaguchi-u.ac.jp &	icurus & \\
+io.bcl.sci.yamaguchi-u.ac.jp &		io & \\
+juno.bcl.sci.yamaguchi-u.ac.jp &	juno & \\
+loki.bcl.sci.yamaguchi-u.ac.jp &	loki & \\
+mars.bcl.sci.yamaguchi-u.ac.jp &	mars & \\
+medusa.bcl.sci.yamaguchi-u.ac.jp &	medusa & \\
+nova.bcl.sci.yamaguchi-u.ac.jp &	nova & \\
+orion.bcl.sci.yamaguchi-u.ac.jp &	orion & \\
+persephone.bcl.sci.yamaguchi-u.ac.jp &	persephone & \\
+perseus.bcl.sci.yamaguchi-u.ac.jp &	perseus & \\
+pluto.bcl.sci.yamaguchi-u.ac.jp &	pluto & \\
+rhea.bcl.sci.yamaguchi-u.ac.jp &	rhea & \\
+rigel.bcl.sci.yamaguchi-u.ac.jp &	rigel & \\
+satyr.bcl.sci.yamaguchi-u.ac.jp &	satyr & \\
+tchort.bcl.sci.yamaguchi-u.ac.jp &	tchort & \\
+titan.bcl.sci.yamaguchi-u.ac.jp &	titan & \\
+triton.bcl.sci.yamaguchi-u.ac.jp &	triton & \\
+uranos.bcl.sci.yamaguchi-u.ac.jp &	uranos & \\
+walkure.bcl.sci.yamaguchi-u.ac.jp &	walkure & \\
+xibalba.bcl.sci.yamaguchi-u.ac.jp &	xibalba & \\
 \hline
 \end{tabular}
 \end{table}
@@ -185,9 +199,10 @@ zeus.bcl.sci.yamaguchi-u.ac.jp はメールサーバ (IMAP/POP,SMTP) と Web サ
 \caption{ネットワークの設定 - 研究室内} \label{tab:IPset_l}
 \begin{tabular}{ll}\hline
 ネットマスク &		255.255.255.0 \\
-ネットワーク・アドレス &	192.168.0.0 \\
-ゲートウェイ &		192.168.0.1 \\
-プライマリ・ネームサーバ (DNS) &	192.168.0.1 \\ \hline
+ネットワーク・アドレス &	10.250.128.0 \\
+ゲートウェイ &		10.250.128.1 \\
+プライマリ・ネームサーバ (DNS) &	133.62.128.32 \\
+セカンダリ・ネームサーバ (DNS) &	133.62.128.33 \\   \hline
 \end{tabular}
 \end{table}
 
@@ -356,7 +371,7 @@ auth       substack    system-auth
 	\item ファイルサーバを参照できるようにターミナルを開き, 以下を実行します.
 \begin{verbatim}
 # mkdir /home/mnt
-# mount 192.168.0.100:/home/public/bcl-setup /home/mnt
+# mount 10.250.128.100:/home/public/bcl-setup /home/mnt
 \end{verbatim}
 	\item 必要な設定ファイルをインストールします.
 \begin{verbatim}
@@ -364,6 +379,25 @@ auth       substack    system-auth
 # make install
 # cd -
 # umount /home/mnt
+\end{verbatim}
+\end{enumerate}
+
+\subsection{プロキシの設定}
+研究室内のLANにつなぐ場合には学内LANと同様にプロキシの設定をしなければなりません.
+自動で設定できるスクリプトがあるのでそれを使って設定しましょう.
+
+\begin{enumerate}
+  \item ターミナルを開き, rootになります. (要パスワード入力)
+\begin{verbatim}
+$ su
+\end{verbatim}
+  \item 以下のコマンドを実行してプロキシの設定を行います.
+\begin{verbatim}
+# /home/public/bcl-setup/install-proxy.sh
+\end{verbatim}
+  \item rootから抜け, 一般ユーザの状態で以下も実行します.
+\begin{verbatim}
+$ /home/public/bcl-setup/install-private.sh
 \end{verbatim}
 \end{enumerate}
 
@@ -493,16 +527,16 @@ vi や emacs などのエディターで\verb|/etc/hosts|を開き, 内容が以
 \begin{quote}
 \begin{verbatim}
 127.0.0.1              localhost.localdomain localhost
-192.168.0.100          venus.bcl.sci.yamaguchi-u.ac.jp venus
-192.168.0.???          mmm.bcl.sci.yamaguchi-u.ac.jp    mmm
+10.250.128.100          venus.bcl.sci.yamaguchi-u.ac.jp venus
+10.250.128.???          mmm.bcl.sci.yamaguchi-u.ac.jp    mmm
 \end{verbatim}
 \end{quote}
-以下は具体例 (io.bcl.sci.yamaguchi-u.ac.jp の場合) です.
+以下は具体例 (fate.bcl.sci.yamaguchi-u.ac.jp の場合) です.
 \begin{quote}
 \begin{verbatim}
 127.0.0.1              localhost.localdomain localhost
-192.168.0.100          venus.bcl.sci.yamaguchi-u.ac.jp venus
-192.168.0.125          io.bcl.sci.yamaguchi-u.ac.jp     io
+10.250.128.100          venus.bcl.sci.yamaguchi-u.ac.jp venus
+10.250.128.111          fate.bcl.sci.yamaguchi-u.ac.jp  fate
 \end{verbatim}
 \end{quote}
 
