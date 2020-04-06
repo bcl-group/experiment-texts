@@ -3,55 +3,42 @@
 \usepackage{geometry}
 \geometry{body={165mm,230mm}}
 
-\def\version{3.0C}
+\def\version{3.1}
 \begin{document}
 
 \begin{center}
-  {\LARGE 楽しい運動計測実習その1: データ解析編(C, ver.\version)}
+  {\LARGE 楽しい運動計測実習その1: データ解析編(ver.\version)}
 \end{center}
 \begin{flushright}
 \today
 \end{flushright}
 
 
+
 \section{マニュアル作成(グループ作業): 目標2日間}
-GitHubのbcl-groupグループ(https://github.com/bcl-group)にリポジトリ"exp-manuals"を作成して，機器操作マニュアルを共同編集で作りましょう。
-\begin{enumerate}
-  \item bcl-groupへの参加招待メールが届いてるはずなので，確認・承認して下さい。
-  \item リポジトリを作ったら，西井に連絡して下さい
-  \item マニュアルは筋電計用(emg-manual.md)とモーションキャプチャ(mc-manual.md)の二種類を作成
-  \item 画像ファイルは各マニュアル毎に異なるディレクトリ(images-emg, images-mc)に格納
-  \item 書式は GitHub Flavoured Markdown で記述(googleで調べること)
-  \item 文章はなるべく\textbf{簡潔に，しかし具体的に}書くこと。
-  \item 作ったマニュアルは，GitHub上で(も)見ることが出来る。
-\end{enumerate}
+% GitHubのbcl-groupグループ(https://github.com/bcl-group)にリポジトリ"exp-manuals"を作成して，機器操作マニュアルを共同編集で作りましょう。
+% \begin{enumerate}
+%   \item bcl-groupへの参加招待メールが届いてるはずなので，確認・承認して下さい。
+%   \item リポジトリを作ったら，西井に連絡して下さい
+%   \item マニュアルは筋電計用(emg-manual.md)とモーションキャプチャ(mc-manual.md)の二種類を作成
+%   \item 画像ファイルは各マニュアル毎に異なるディレクトリ(images-emg, images-mc)に格納
+%   \item 書式は GitHub Flavoured Markdown で記述(googleで調べること)
+%   \item 文章はなるべく\textbf{簡潔に，しかし具体的に}書くこと。
+%   \item 作ったマニュアルは，GitHub上で(も)見ることが出来る。
+% \end{enumerate}
 
 
 \section{データ解析(各個人): 目標4日間}
 以下のデータ解析用プログラムを作りなさい。
-主にCやシェルスクリプトを使うものとして書いてあるが，pythonやRで書いても良い。ただし，シェルスクリプトは便利なので書かれている
-
-\subsection{準備: 目標2日間}
-pythonをよく知らない人は以下でまず勉強をすること。
-\begin{enumerate}
- \item pythonをLinux環境にインストール(裏ページ参照)
-        \item Aidemy(https://aidemy.net/)の以下のコースのうち，よく知らないところをお勉強
-        \begin{enumerate}
-                \item Python入門
-                \item Numpyを用いた数値計算
-                \item Pandasを用いた数値計算
-                \item Matplotlibによるデータ可視化
-                \item データクレンジング(OpenCVの部分は不要)
-        \end{enumerate}
-\end{enumerate}
+主にCやシェルスクリプトを使うものとして書いてあるが，pythonやRを使っても良い。ただし，シェルスクリプトは使えた方が便利なので，指定された通り作成すること。
 
 \subsection{筋電データの処理: 目標3日間}
-以下のプログラムを作りなさい。
+以下の処理を行うプログラムを作りなさい。
 \begin{enumerate}
 \item 筋電位に1〜40 Hzの通過帯域を持つバンドパスフィルター（3次バターワース）をかける。ただし，単純にバンドパスフィルターを
 かけて得られるデータは元データに対して少し時間ズレを起こすことが多い。そこで，順方向と逆方向の両方から一回づつフィルター処理することで時間的なズレを補正する。この処理は，pythonならばscipyのfiltfilt関数を使えば自動で行われる。
-\item C言語で筋電位$E(t)$を整流する(絶対値をとる)。
-\item C言語で適当な幅$\Delta T$の窓を設定して, その中での積分値を求め, 筋肉の
+\item 筋電位$E(t)$を整流する(絶対値をとる)。
+\item 適当な幅$\Delta T$の窓を設定して, その中での積分値を求め, 筋肉の
   活動度を見る指標とする。
 \end{enumerate}
 つまり, 時刻$t$における筋肉の活動度($a(t)$)は以下で評価することになる。
@@ -98,7 +85,7 @@ pythonをよく知らない人は以下でまず勉強をすること。
 データファイル\verb|pos-joints.dat|から、各関節
 の各座標データを抽出する処理を自動化したい。
 \begin{enumerate}
-\item 以下のようなプログラム\verb|extract.c|を作りなさい。
+\item 以下のようなプログラム\verb|extract.c|(言語に応じて\verb|extract.py|,\verb|extract.R|等)を作りなさい。
   \begin{enumerate}
   \item 実行時には以下のような引数を指定できるようにする。
 \begin{verbatim}
@@ -150,7 +137,7 @@ $ cut23 1-pos-joints.dat
 \item \LaTeX を使って、実験結果をレポートにしなさい。
 \item \LaTeX の使い方は裏ページや，本棚の書籍等を参照のこと。
 \item 生データや処理したデータはグラフ(x-t,y-t,x-y等)にして考察しなさい。
-\item \textbf{グラフ作成に表計算ソフトは使わず}，gnuplot, python, R, xmgrace (マニュアル有)等のグラフ作成ツールを使って作成すること
+\item \textbf{グラフ作成に表計算ソフトは使わず}，pythonやRのグラフ作成ライブラリを使いなさい。
 \item 実験の目的、手法、結果、考察をきちんと書くこと。
   ただし，考察は数行程度でOK。
 \item 結果をわかりやすく示す図表を作ること。
