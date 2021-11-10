@@ -3,7 +3,7 @@
 \usepackage{geometry}
 \geometry{body={165mm,230mm}}
 
-\def\version{3.1}
+\def\version{3.2}
 \begin{document}
 
 \begin{center}
@@ -28,33 +28,56 @@
 % \end{enumerate}
 
 
-\section{データ解析(各個人): 目標4日間}
+\section{バンドパスフィルタについて}  
+一般に計測信号にはノイズがのるので，S/N比をよくするためにバンドパスフィルタを用いる。
+ただし，単純にバンドパスフィルターをかけて得られるデータは元データに対して少し時間ズレを起こすことが多い。
+そこで，順方向と逆方向の両方から一回づつフィルター処理することで時間的なズレを補正する。
+この処理は，pythonならばscipyのfiltfilt関数を使えば自動で行われる。
+
+\section{データ解析(各個人): 目標5日間}
 以下のデータ解析用プログラムを作りなさい。
-主にCやシェルスクリプトを使うものとして書いてあるが，pythonやRを使っても良い。ただし，シェルスクリプトは使えた方が便利なので，シェルスクリプトを作成するように指示があるときにはその通り作成すること。
+プログラミング言語は好きなものを用いてよいが，シェルスクリプトを作成するように指示があるときにはその通り作成すること。
+
 
 \subsection{筋電データの処理: 目標3日間}
+
+計測したEMG信号は，正常に取得されているかを確認の上，平滑化およびフィルタ処理を行う。
+一般には以下のように処理する。
+ただし，遮断周波数は目的に応じて大きく変えることも多い。
+\begin{enumerate}
+  \item 高周波フィルタ: 遮断周波数は数Hzから10Hz程度。直流成分や低周波数のドリフトを除去。バンドパスフィルタを用いて高周波ノイズを遮断する場合もある。
+  \item 整流
+  \item 低周波フィルタ: 遮断周波数は15Hz程度。平滑化を行う場合もある。
+  \item 規格化: 本実験では行わないが，一般には必要になることが多い。
+\end{enumerate}
+フィルタ処理には一般にバターワースフィルタが用いられることが多い。
+
 以下の処理を行うプログラムを作りなさい。
 \begin{enumerate}
-\item 筋電位に1〜40 Hzの通過帯域を持つバンドパスフィルター（3次バターワース）をかける。ただし，単純にバンドパスフィルターを
-かけて得られるデータは元データに対して少し時間ズレを起こすことが多い。そこで，順方向と逆方向の両方から一回づつフィルター処理することで時間的なズレを補正する。この処理は，pythonならばscipyのfiltfilt関数を使えば自動で行われる。
-\item 筋電位$E(t)$を整流する(絶対値をとる)。
-\item 適当な幅$\Delta T$の窓を設定して, その中での積分値を求め, 筋肉の
-  活動度を見る指標とする。
+\item \textbf{高周波フィルタ}: 筋電位に遮断周波数10 Hzの高周波フィルタ（3次バターワースフィルタ）をかける。
+\item \textbf{整流}; 筋電位$E(t)$を整流する(絶対値をとる)。
+\item \textbf{低周波フィルタ or 平滑化}　(どちらを用いるかは指示に従うこと)
+  \begin{enumerate}
+    \item 平滑化の場合は，適当な幅$\Delta T$の窓内での積分値を求め, 筋肉の活動度を見る指標とする。
+    つまり, 時刻$t$における筋肉の活動度($a(t)$)は以下で評価することになる。
+    \begin{align}
+      a(t)=\frac{1}{\Delta T}\int_{t-\Delta T/2}^{t+\Delta T/2}|E(t)|dt\notag
+    \end{align}
+    PythonやRの場合，「移動平均」でgoogle検索すれば計算に利用できるライブラリがすぐに見つかる。
+    \item 低周波フィルタを用いる場合は，上記の「高周波フィルタ」の項目を参考にし，遮断周波数は 15 Hzに設定しなさい。 
+    ただし，必要に応じてこの遮断周波数は変更しても良い。
+  \end{enumerate}
 \end{enumerate}
-つまり, 時刻$t$における筋肉の活動度($a(t)$)は以下で評価することになる。
-\begin{align}
-  a(t)=\frac{1}{\Delta T}\int_{t-\Delta T/2}^{t+\Delta T/2}|E(t)|dt\notag
-\end{align}
 
-これらの処理を行う理由を生データから考察せよ。
+\textbf{各処理過程におけるデータはそれぞれグラフ表示により確認し，処理が適切に行われているかを確認}すること。
 
+\subsection{運動軌道データの処理: 目標3日間}
 \subsubsection{運動軌道データの切取り}
 
 \begin{enumerate}
 \item 計測によって得られた身体軌道のデータの内容を確認し, フォーマットとデータ
   (数値)の意味を把握しなさい。
-  フォーマットは，使うソフトウェアの種類によって異なるが，大抵以下のよ
-  うになっている。
+  フォーマットは，使うソフトウェアの種類によって異なるが，大抵以下のようになっている。
   \begin{enumerate}
   \item ヘッダ部(始め):計測条件, データの各列のタイトル
   \item データ部: シーン番号、マーカID、x座標, y座標, z座標等
@@ -82,55 +105,66 @@
 
 \subsubsection{運動軌道データの処理}
 
-データファイル\verb|pos-joints.dat|から、各関節
-の各座標データを抽出する処理を自動化したい。
-\begin{enumerate}
-\item 以下のようなプログラム\verb|extract.c|(言語に応じて\verb|extract.py|,\verb|extract.R|等)を作りなさい。
-  \begin{enumerate}
-  \item 実行時には以下のような引数を指定できるようにする。
-\begin{verbatim}
-    $ extract <サンプリング周波数> <マーカ数> <入力データファイル名>
-\end{verbatim}
-  \item 出力データに書き込む「時刻」は、引数で与えた「サンプリング周波数」
-    と、入力データの「シーン」番号により計算する。
-  \item 入力ファイルが\verb|name.dat|のとき、出力ファイル名は計測点
-    IDを使って\verb|1-name.dat|, \verb|2-name.dat|,...とする。
-    もし、入力ファイル名が\verb|pos-joints.dat|ならば、出力ファイル名は計測点
-    IDを使って\verb|1-pos-joints.dat|,
-    \verb|2-pos-joints.dat|,...である。
-  \item 各出力データファイルのフォーマットは以下の通り。
-\begin{verbatim}
-時刻, x座標, y座標, z座標
-\end{verbatim}
-  \end{enumerate}
-\item  以下のようなシェルスクリプト\verb|extract.sh|を作りなさい。
-  その仕様は以下の通りとする。
-  \begin{enumerate}
-  \item 実行時には以下のような引数を指定できるようにする。
-\begin{verbatim}
-$ extract.sh <入力データファイル名>
-\end{verbatim}
-  \item 前問の\verb|extract|コマンドを、サンプリング周波数、計測
-    点数、入力データファイル名を指定して呼び出して、各関節のxyzデータを
-    抽出する。
-  \item サンプリング周波数とマーカ数は先につくってある
-    \verb|info-*.dat|から抽出する。
-    (例えばgrepとcutを用いて抽出できる。
-    シェルスクリプトで，あるコマンド\verb|cmd|の実行結果を変数
-    \verb|CMD|に格納するには\verb|CMD=`cmd`とすればOK|)
+モーションキャプチャーシステムにより取得した運動軌道には一般にノイズがのっているため，低周波フィルタによるノイズ処理を行う。
+低周波フィルタには三次バターワースフィルタを用いることが一般的である。
+遮断周波数は8-10 Hz程度にすることが多いが，ノイズの強さや，注目する運動の速さに応じて変更する。
 
-  \end{enumerate}
-\item 以下のようなシェルスクリプト\verb|cut23|をつくりなさい。
-\begin{enumerate}
-\item 以下のように実行したら，入力ファイルの第2,3,4フィールド(xyz座標デー
-  タ)のみを抽出したファイルを出力する。(cutコマンドを使う)
-\begin{verbatim}
-$ cut23 1-pos-joints.dat
-\end{verbatim}
-\item 上記のように入力ファイル名が\verb|1-pos-joints.dat|ならば、出力
-  ファイル名は\verb|1-xy-joints.dat|とする。
-\end{enumerate}
-\end{enumerate}
+運動軌道データに高周波フィルタ（3次バターワースフィルタ）をかけるプログラムを作りなさい。
+遮断周波数が5 Hz, 10 Hzの場合について，ノイズが適切に除去されることを確認しなさい。
+
+
+
+% \subsubsection{運動軌道データの処理}
+
+% データファイル\verb|pos-joints.dat|から、各関節
+% の各座標データを抽出する処理を自動化したい。
+% \begin{enumerate}
+% \item 以下のようなプログラム\verb|extract.c|(言語に応じて\verb|extract.py|,\verb|extract.R|等)を作りなさい。
+%   \begin{enumerate}
+%   \item 実行時には以下のような引数を指定できるようにする。
+% \begin{verbatim}
+%     $ extract <サンプリング周波数> <マーカ数> <入力データファイル名>
+% \end{verbatim}
+%   \item 出力データに書き込む「時刻」は、引数で与えた「サンプリング周波数」
+%     と、入力データの「シーン」番号により計算する。
+%   \item 入力ファイルが\verb|name.dat|のとき、出力ファイル名は計測点
+%     IDを使って\verb|1-name.dat|, \verb|2-name.dat|,...とする。
+%     もし、入力ファイル名が\verb|pos-joints.dat|ならば、出力ファイル名は計測点
+%     IDを使って\verb|1-pos-joints.dat|,
+%     \verb|2-pos-joints.dat|,...である。
+%   \item 各出力データファイルのフォーマットは以下の通り。
+% \begin{verbatim}
+% 時刻, x座標, y座標, z座標
+% \end{verbatim}
+%   \end{enumerate}
+% \item  以下のようなシェルスクリプト\verb|extract.sh|を作りなさい。
+%   その仕様は以下の通りとする。
+%   \begin{enumerate}
+%   \item 実行時には以下のような引数を指定できるようにする。
+% \begin{verbatim}
+% $ extract.sh <入力データファイル名>
+% \end{verbatim}
+%   \item 前問の\verb|extract|コマンドを、サンプリング周波数、計測
+%     点数、入力データファイル名を指定して呼び出して、各関節のxyzデータを
+%     抽出する。
+%   \item サンプリング周波数とマーカ数は先につくってある
+%     \verb|info-*.dat|から抽出する。
+%     (例えばgrepとcutを用いて抽出できる。
+%     シェルスクリプトで，あるコマンド\verb|cmd|の実行結果を変数
+%     \verb|CMD|に格納するには\verb|CMD=`cmd`とすればOK|)
+
+%   \end{enumerate}
+% \item 以下のようなシェルスクリプト\verb|cut23|をつくりなさい。
+% \begin{enumerate}
+% \item 以下のように実行したら，入力ファイルの第2,3,4フィールド(xyz座標デー
+%   タ)のみを抽出したファイルを出力する。(cutコマンドを使う)
+% \begin{verbatim}
+% $ cut23 1-pos-joints.dat
+% \end{verbatim}
+% \item 上記のように入力ファイル名が\verb|1-pos-joints.dat|ならば、出力
+%   ファイル名は\verb|1-xy-joints.dat|とする。
+% \end{enumerate}
+% \end{enumerate}
 
 \subsection{プレゼン作成: 目標3日間}
 \begin{enumerate}
@@ -141,16 +175,16 @@ $ cut23 1-pos-joints.dat
 \item \textbf{グラフ作成に表計算ソフトは使わず}，pythonやRのグラフ作成ライブラリを使いなさい。
 \end{enumerate}
 
-\subsection{レポート作成: 目標2日間}
-\begin{enumerate}
-\item \LaTeX を使って、実験結果をレポートにしなさい。
-\item 実験の目的、手法、結果、考察をきちんと書くこと。  ただし，考察は数行程度でOK。
-\item 結果をわかりやすく示す図表を作ること。 絵を描くにはLibreOffice等を使う。
-  表は\LaTeX の表組機能を使うこと。
-\item 図表の引用は\verb|\label|,\verb|\ref|を使った \LaTeX の自動引用機能を使う事。
-\item 掲載した図表は必ず本文中で引用して説明すること。
-\item \LaTeX の使い方は裏ページや，本棚の書籍等を参照のこと。
-\item \textbf{グラフ作成に表計算ソフトは使わず}，pythonやRのグラフ作成ライブラリを使いなさい。
-\end{enumerate}
+% \subsection{レポート作成: 目標2日間}
+% \begin{enumerate}
+% \item \LaTeX を使って、実験結果をレポートにしなさい。
+% \item 実験の目的、手法、結果、考察をきちんと書くこと。  ただし，考察は数行程度でOK。
+% \item 結果をわかりやすく示す図表を作ること。 絵を描くにはLibreOffice等を使う。
+%   表は\LaTeX の表組機能を使うこと。
+% \item 図表の引用は\verb|\label|,\verb|\ref|を使った \LaTeX の自動引用機能を使う事。
+% \item 掲載した図表は必ず本文中で引用して説明すること。
+% \item \LaTeX の使い方は裏ページや，本棚の書籍等を参照のこと。
+% \item \textbf{グラフ作成に表計算ソフトは使わず}，pythonやRのグラフ作成ライブラリを使いなさい。
+% \end{enumerate}
 
 \end{document}
