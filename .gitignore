@@ -1,4 +1,5 @@
 .texpadtmp
+out/
 *.aux
 *.bbl
 *.bcf
