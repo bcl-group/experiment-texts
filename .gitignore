@@ -18,5 +18,5 @@ out/
 *.synctex.gz
 *.toc
 *~
-.nfs
+.nfs*
 .DS_Store
