@@ -1,5 +1,6 @@
 \documentclass{ltjsarticle}
 \usepackage{amsmath}
+\usepackage{hyperref}
 \usepackage{geometry}
 \geometry{body={165mm,230mm}}
 
@@ -16,16 +17,12 @@
 
 \section{大事な点}
 
-以下を読んで，筋電位(Electromyography)の性質を理解しておきましょう。
+\begin{itemize}
+\item  以下を読んで，筋電位(Electromyography)の性質を理解しておきましょう。\\
+  「筋電図の信号品質にかかわる要因とは？」: \url{https://delsys.com/japan/semg-technology}
+\item 筋電位が大きいことが，ただちにその筋活動による関節モーメントが大きいことは意味しないことに注意
+\end{itemize}
 
-- 「筋電図の信号品質にかかわる要因とは？」: [https://delsys.com/japan/semg-technology](https://delsys.com/japan/semg-technology)
-- 筋電位が大きいことが，ただちにその筋活動による関節モーメントが大きいことは意味しないことに注意
-
-
-\section{解析の概要}
-
-以下のデータ解析用プログラムを作りなさい。
-プログラミング言語については，特に指示がない限り好きなものを用いてよい。
 
 %\section{マニュアル作成(グループ作業): 目標2日間}
 % GitHubのbcl-groupグループ(https://github.com/bcl-group)にリポジトリ"exp-manuals"を作成して，機器操作マニュアルを共同編集で作りましょう。
@@ -55,7 +52,6 @@
 % \item 筋電位の周波数分布は負荷に応じて変化するか確認しなさい。
 % \end{enumerate}
 
-\subsection{フィルタ処理}
 筋電位は，おおむね以下の手順で処理することが多いが，目的によっていろいろな方法がある。
 
 \begin{enumerate}
@@ -95,8 +91,8 @@ Delsysによる推奨のバンドパスフィルターは、スロープ 12 dB/o
 
 \subsection{データの前処理}
 \begin{enumerate}
-  \item 数値差分により速度や加速度を求める場合には，事前に低周波フィルタ(バターワースフィルタ)でノイズ処理を行う。
-  \item 必要に応じて時間方向の正規化や加算平均を行う。
+  \item 数値差分により速度や加速度を求める場合には，軌道データに対して低周波フィルタ(バターワースフィルタ)でノイズ処理を行う。
+  \item 周期性のあるデータや，一定時間で行うタスクについては必要に応じて時間方向の正規化や加算平均を行う。
 \end{enumerate}
 
 % % ----------- 高速度カメラ(古い機種)---------------
@@ -194,7 +190,7 @@ Delsysによる推奨のバンドパスフィルターは、スロープ 12 dB/o
 % \end{enumerate}
 % \end{enumerate}
 
-\subsection{プレゼンテーション作成}
+\section{プレゼンテーション作成}
 \begin{enumerate}
 \item 実験結果をプレゼンにまとめなさい。
 \item 実験の目的、手法、結果、考察を自分なりにまとめること。
